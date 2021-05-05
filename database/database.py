@@ -15,8 +15,7 @@ buchungen["000001"] = {"Buchungsnummer": "000001", "Buchungstext": "Eröffnungsb
 ## Computer
 konten["00201"] = {"Kontonummer": "00201", "Kontoname": "Computer", "Eröffnungsbilanz": {"Soll": 0, "Haben": 0},
                    "Monatsverkehrszahlen": {"Soll": 0, "Haben": 0}, "Jahresverkehrszahlen": {"Soll": 0, "Haben": 0},
-                   "Mehrwertsteuerinfomation": 0.19
-                   }
+                   "Mehrwertsteuerinfomation": 0.19}
 
 ## Büroeinrichtung
 konten["00420"] = {"Kontonummer": "00420", "Kontoname": "Büroeinrichtung", "Eröffnungsbilanz": {"Soll": 0, "Haben": 0},
@@ -201,3 +200,6 @@ def kontoLoeschen(kontonummer):
 
 buchungen.close()
 konten.close()
+
+buchungen = shelve.open("buchungen.db")
+print(buchungen["000001"])
