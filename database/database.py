@@ -68,7 +68,7 @@ def buchungErstellen():
     isVorhanden = True
     while (isVorhanden):
         buchungsnummer = input("Buchungsnummer: ")
-        if buchungsnummer in konten:
+        if buchungsnummer in buchungen:
             print("Buchungsnummer ist schon vorhanden")
         else:
             isVorhanden = False
@@ -197,9 +197,6 @@ def kontoLoeschen(kontonummer):
     else:
         return "Konto existiert nicht"
 
-
+buchungErstellen()
 buchungen.close()
 konten.close()
-
-buchungen = shelve.open("buchungen.db")
-print(buchungen["000001"])
