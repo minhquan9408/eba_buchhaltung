@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Buchungen</h1>
+    <table>
+        <tr>
+            <th>Buchungsnummer</th>
+            <th>Buchungstext</th>
+            <th>Buchungsschlüssel</th>
+            <th>Buchungsdatum</th>
+            <th>Soll</th>
+            <th>Haben</th>
+        </tr>
+
+        {% for keys in data.values() %}
+            <tr>
+                {#    <h2>Buchungsnummer: {{ keys["Buchungsnummer"] }}</h2>#}
+                {% for key, value in keys.items() %}
+                    <td> {{ value }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock content %}
