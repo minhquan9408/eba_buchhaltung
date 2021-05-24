@@ -30,7 +30,9 @@ def getAllBooking():
     with shelve.open("buchungen.db") as buchungen:
         for key in buchungen:
             dic[key] = buchungen[key]
-    return render_template('booking.html', data=dic)
+    # return render_template('booking.html', data=dic)
+    data = flask.jsonify(dic)
+    return data
 
 
 @app.route('/api/buchungen/add', methods=['POST'])
@@ -79,7 +81,8 @@ def getAllAccounts():
     with shelve.open("konten.db") as konten:
         for key in konten:
             dic[key] = konten[key]
-        return render_template("account.html", data=dic)
+        # return render_template("account.html", data=dic)
+        return dic
 
 
 @app.route('/api/konten/add', methods=['POST'])
