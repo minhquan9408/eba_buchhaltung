@@ -14,9 +14,10 @@ def home():
                     <input type="submit" value="Convert">
                   </form>"""
 
-######Buchungen###########
+
+# Controller for bookings
 @app.route('/api/buchungen/<buchungsnummer>', methods=['GET'])
-def getBooking(buchungsnummer):
+def get_booking(buchungsnummer):
     dic = {}
     with shelve.open("buchungen.db") as buchungen:
         if buchungsnummer in buchungen:
@@ -25,7 +26,7 @@ def getBooking(buchungsnummer):
 
 
 @app.route("/api/buchungen/all", methods=['GET'])
-def getAllBooking():
+def get_all_booking():
     dic = {}
     with shelve.open("buchungen.db") as buchungen:
         for key in buchungen:
@@ -36,9 +37,8 @@ def getAllBooking():
 
 
 @app.route('/api/buchungen/add', methods=['POST'])
-def addBooking():
+def add_booking():
     request_data = request.get_json()
-    print(request_data)
     x = list(request_data.keys())
     key = x[0]
     with shelve.open("buchungen.db") as buchungen:
@@ -47,11 +47,11 @@ def addBooking():
             shelve.Shelf.close(buchungen)
             return request_data
         else:
-            return "Buchung konnte nicht erstellt werden"
+            return "Buchung konnte nicht erstellt werden", 400
 
 
 @app.route('/api/buchungen/update', methods=['POST'])
-def updateBooking():
+def update_booking():
     request_data = request.get_json()
     print(request_data)
     x = list(request_data.keys())
@@ -65,9 +65,9 @@ def updateBooking():
             return "Buchung nicht existiert"
 
 
-######Konten###########
+# Controller for Accounts
 @app.route('/api/konten/<kontosnummer>', methods=['GET'])
-def getAccount(kontosnummer):
+def get_account(kontosnummer):
     dic = {}
     with shelve.open("konten.db") as konten:
         if kontosnummer in konten:
@@ -76,7 +76,7 @@ def getAccount(kontosnummer):
 
 
 @app.route("/api/konten/all", methods=['GET'])
-def getAllAccounts():
+def get_all_accounts():
     dic = {}
     with shelve.open("konten.db") as konten:
         for key in konten:
@@ -86,7 +86,7 @@ def getAllAccounts():
 
 
 @app.route('/api/konten/add', methods=['POST'])
-def addAccount():
+def add_account():
     request_data = request.get_json()
     print(request_data)
     x = list(request_data.keys())
@@ -101,7 +101,7 @@ def addAccount():
 
 
 @app.route('/api/konten/update/<kontonummer>', methods=['POST'])
-def updateAccount(kontonummer):
+def update_account(kontonummer):
     request_data = request.get_json()
     print(request_data)
     x = list(request_data.keys())

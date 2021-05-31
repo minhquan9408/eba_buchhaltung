@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {fetchAllAccounts} from "../services/service";
+import {fetchAllAccounts} from "../../services/service";
 import {Spin} from "antd";
 
-export default function AccountOverview () {
+export default function AccountUpdate () {
     const [accounts, setAccounts] = useState()
     useEffect (() => {
         fetchAllAccounts()
@@ -14,7 +14,7 @@ export default function AccountOverview () {
             {!!accounts ?
                 (
                     <div>
-                        This is Accounts Overview page
+                        This is Accounts Update page
                     </div>
                 ) :
                 (

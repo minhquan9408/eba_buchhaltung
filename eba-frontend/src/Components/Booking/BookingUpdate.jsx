@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {fetchAllBookings} from "../services/service";
+import {fetchAllBookings} from "../../services/service";
 import {Spin} from "antd";
 
-export default function BookingOverview() {
+export default function BookingUpdate() {
     const [booking, setBooking] = useState()
     useEffect(() => {
         fetchAllBookings()
@@ -14,7 +14,7 @@ export default function BookingOverview() {
             {!!booking ?
                 (
                     <div>
-                        This is Booking Overview page
+                        This is Booking Update page
                     </div>
                 ) :
                 (
