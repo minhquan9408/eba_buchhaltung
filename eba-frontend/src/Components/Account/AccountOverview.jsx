@@ -33,6 +33,8 @@ let kreditoren = []
         console.log(kreditoren.length)
     }
 
+
+
     return (
         <>
             {!!accounts ?
@@ -42,7 +44,7 @@ let kreditoren = []
             {sachKonten.length > 0 ?
                 (
                     <div>
-                        This is Accounts Overview page {accounts[1400]['Kontoname']}
+                        This is Accounts Overview page für Sachkonten
                     </div>
                 ) :
                 (
@@ -53,7 +55,7 @@ let kreditoren = []
             {debitoren.length > 0 ?
                 (
                     <div>
-                        This is Accounts Overview page {accounts[1400]['Kontoname']}
+                        This is Accounts Overview page für Debitoren
                     </div>
                 ) :
                 (
@@ -64,7 +66,7 @@ let kreditoren = []
             {kreditoren.length > 0 ?
                 (
                     <div>
-                        This is Accounts Overview page {accounts[1400]['Kontoname']}
+                        This is Accounts Overview page für Kreditoren
                     </div>
                 ) :
                 (
@@ -72,17 +74,11 @@ let kreditoren = []
                 )
             }
                     </div>
-
                 ) :
                 (
                     <Spin/>
                 )
             }
-
-
-
-
         </>
-
     )
 }

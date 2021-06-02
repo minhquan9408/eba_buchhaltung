@@ -1,6 +1,7 @@
+import shelve
+
 import flask
 from flask import Flask, render_template, request
-import shelve
 
 app = Flask(__name__)
 
@@ -40,7 +41,19 @@ def get_all_booking():
 def add_booking():
     request_data = request.get_json()
     x = list(request_data.keys())
+    print(x)
+    print(request_data)
     key = x[0]
+    habenKonto = request_data[key]["Haben"]
+    sollKonto = request_data[key]["Soll"]
+    betrag = request_data[key]["Betrag"]
+    print(f'relevant Konto in Haben {habenKonto}')
+    print(f'relevant Konto in Soll {sollKonto}')
+    # TODO: UPDATE Betrag for relevant KONTO in konten.db
+    with shelve.open("konten.db") as konten:
+        print("bla")
+        shelve.Shelf.close(konten)
+
     with shelve.open("buchungen.db") as buchungen:
         if key not in buchungen:
             buchungen[key] = request_data[key]

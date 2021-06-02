@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {fetchAllBookings} from "../../services/service";
+import {fetchAllAccounts, fetchAllBookings} from "../../services/service";
 import {
     Button,
     Spin,
@@ -45,9 +45,11 @@ const tailFormItemLayout = {
 export default function BookingCreate() {
     const [booking, setBooking] = useState({})
     // const [nextId, setNextId] = useState(Object.keys(booking).length)
+const [accounts, setAccounts] = useState({})
     useEffect(() => {
         fetchAllBookings()
             .then(res => setBooking(res))
+        fetchAllAccounts().then(res => setAccounts(res))
     }, [])
     const [form] = Form.useForm();
     const history = useHistory()

@@ -16,18 +16,56 @@ import {
 } from "antd";
 import {DownOutlined, UserOutlined} from "@ant-design/icons";
 
-export default function AccountCreate () {
+const formItemLayout = {
+    labelCol: {
+        xs: {
+            span: 24,
+        },
+        sm: {
+            span: 8,
+        },
+    },
+    wrapperCol: {
+        xs: {
+            span: 24,
+        },
+        sm: {
+            span: 16,
+        },
+    },
+};
+const tailFormItemLayout = {
+    wrapperCol: {
+        xs: {
+            span: 24,
+            offset: 0,
+        },
+        sm: {
+            span: 16,
+            offset: 8,
+        },
+    },
+};
+
+export default function AccountCreate() {
     const [accounts, setAccounts] = useState()
     const [konto, setKonto] = useState("")
 
-    useEffect (() => {
+    useEffect(() => {
         fetchAllAccounts()
             .then(res => setAccounts(res))
-    },[])
+    }, [])
+
     function handleMenuClick(e) {
         setKonto(e.key)
     }
-const menu = (
+
+    const [form] = Form.useForm();
+    const onReset = () => {
+        form.resetFields()
+    }
+
+    const menu = (
         <Menu onClick={handleMenuClick}>
             <Menu.Item key="sachkonto" icon={<UserOutlined/>}>
                 Sachkonto
@@ -40,7 +78,7 @@ const menu = (
             </Menu.Item>
         </Menu>
     );
-   return (
+    return (
         <>
             {!!accounts ?
                 (
@@ -55,74 +93,135 @@ const menu = (
                         <>
                             <h1>This is form for sachkonto</h1>
                             <Form
-                                labelCol={{
-                                    span: 4,
-                                }}
-                                wrapperCol={{
-                                    span: 14,
-                                }}
-                                layout="horizontal"
-
-
+                                {...formItemLayout}
+                                form={form}
+                                name="register"
+                                // onFinish={onFinish}
+                                scrollToFirstError
                             >
-                                <Form.Item label="DatePicker">
-                                    <DatePicker/>
-                                </Form.Item>
-                                <Form.Item label="Input">
+
+                                <Form.Item
+                                    name="Kontonummer"
+                                    label="Kontonummer"
+                                    rules={[
+                                        {
+                                            required: true
+                                        }
+                                    ]}
+                                >
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item label="Select">
-                                    <Select>
-                                        <Select.Option value="demo">Demo</Select.Option>
-                                    </Select>
-                                </Form.Item>
-                                <Form.Item label="TreeSelect">
-                                    <TreeSelect
-                                        treeData={[
-                                            {
-                                                title: 'Light',
-                                                value: 'light',
-                                                children: [
-                                                    {
-                                                        title: 'Bamboo',
-                                                        value: 'bamboo',
-                                                    },
-                                                ],
-                                            },
-                                        ]}
-                                    />
-                                </Form.Item>
-                                <Form.Item label="Cascader">
-                                    <Cascader
-                                        options={[
-                                            {
-                                                value: 'zhejiang',
-                                                label: 'Zhejiang',
-                                                children: [
-                                                    {
-                                                        value: 'hangzhou',
-                                                        label: 'Hangzhou',
-                                                    },
-                                                ],
-                                            },
-                                        ]}
-                                    />
+                                <Form.Item
+                                    name="Kontoname"
+                                    label="Kontoname"
+
+                                    rules={[
+                                        {
+                                            required: true,
+                                        },
+                                    ]}
+                                >
+                                    <Input/>
                                 </Form.Item>
 
-                                <Form.Item label="InputNumber">
-                                    <InputNumber/>
+                                <Form.Item
+                                    name="Beschreibung"
+                                    label="Beschreibung"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Beschreibung eingeben',
+                                        },
+                                    ]}
+                                >
+                                    <Input/>
                                 </Form.Item>
-                                <Form.Item label="Switch">
-                                    <Switch/>
-                                </Form.Item>
-                                <Form.Item label="Button">
-                                    <Button>Button</Button>
+
+                                <Form.Item {...tailFormItemLayout}>
+                                    <Button type="primary" htmlType="submit">
+                                        Konto erstellen
+                                    </Button>
+                                    <Button htmlType="button" onClick={onReset}>
+                                        Reset
+                                    </Button>
                                 </Form.Item>
                             </Form>
                         </>
                         }
-                        {konto === "debitor" &&
-                        <h1>This is form for debitor</h1>
+                        {konto === "debitor" && (
+                            <>
+                                <h1>This is form for debitor</h1>
+                                <Form
+                                    {...formItemLayout}
+                                    form={form}
+                                    name="register"
+                                    // onFinish={onFinish}
+                                    scrollToFirstError
+                                >
+
+                                    <Form.Item
+                                        name="Kontonummer"
+                                        label="Kontonummer"
+                                        rules={[
+                                            {
+                                                required: true
+                                            }
+                                        ]}
+                                    >
+                                        <Input/>
+                                    </Form.Item>
+                                    <Form.Item
+                                        name="Kontoname"
+                                        label="Kontoname"
+
+                                        rules={[
+                                            {
+                                                required: true,
+                                            },
+                                        ]}
+                                    >
+                                        <Input/>
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        name="Beschreibung"
+                                        label="Beschreibung"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Beschreibung eingeben',
+                                            },
+                                        ]}
+                                    >
+                                        <Input/>
+                                    </Form.Item>
+
+                                     <Form.Item
+                                        name="Adresse"
+                                        label="Adresse"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Beschreibung eingeben',
+                                            },
+                                        ]}
+                                    >
+                                        <Input/>
+                                    </Form.Item>
+
+
+                                    <Form.Item {...tailFormItemLayout}>
+                                        <Button type="primary" htmlType="submit">
+                                            Konto erstellen
+                                        </Button>
+                                        <Button htmlType="button" onClick={onReset}>
+                                            Reset
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+                            </>
+
+                        )
                         }
                         {konto === "kreditor" &&
                         <h1>This is form for kreditor</h1>
