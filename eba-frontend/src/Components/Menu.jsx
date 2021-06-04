@@ -65,7 +65,7 @@ export default function MenuLayout() {
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{padding: 0}}>
-                        EBA Software
+                        EBA Anwendung
                     </Header>
                     <Content>
                         <Route exact path="/booking/overview" component={BookingOverview}/>
