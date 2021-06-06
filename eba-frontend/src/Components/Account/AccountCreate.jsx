@@ -78,6 +78,51 @@ export default function AccountCreate() {
             </Menu.Item>
         </Menu>
     );
+
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+        const allAccountsIds = Object.keys(accounts)
+        console.log(allAccountsIds)
+
+        console.log(values.Kontonummer)
+        const id = values.Kontonummer
+        // const myHeaders = new Headers();
+        // myHeaders.append("Content-Type", "application/json");
+        //
+        // const raw = JSON.stringify({
+        //     [id]: {
+        //         "Beschreibung": "test",
+        //         "Eroeffnungsbilanz": {
+        //             "Haben": 0,
+        //             "Soll": 0
+        //         },
+        //         "Jahresverkehrszahlen": {
+        //             "Haben": 0,
+        //             "Soll": 0
+        //         },
+        //         "Kontoname": "test",
+        //         "Kontonummer": "2000",
+        //         "Monatsverkehrszahlen": {
+        //             "Haben": 0,
+        //             "Soll": 0
+        //         },
+        //         "Buchungen": {}
+        //     }
+        // });
+        //
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: raw,
+        //     redirect: 'follow'
+        // };
+        //
+        // fetch("/api/konten/add", requestOptions)
+        //     .then(response => response.text())
+        //     .then(result => console.log(result))
+        //     .catch(error => console.log('error', error));
+    }
+
     return (
         <>
             {!!accounts ?
@@ -96,7 +141,7 @@ export default function AccountCreate() {
                                 {...formItemLayout}
                                 form={form}
                                 name="register"
-                                // onFinish={onFinish}
+                                onFinish={onFinish}
                                 scrollToFirstError
                             >
 
@@ -105,11 +150,14 @@ export default function AccountCreate() {
                                     label="Kontonummer"
                                     rules={[
                                         {
-                                            required: true
+                                            required: true,
+                                            type: 'number',
+                                            max: 9999,
+                                            message: 'The input is not a number, max = 999'
                                         }
                                     ]}
                                 >
-                                    <Input/>
+                                    <InputNumber min={1} max={9999}/>
                                 </Form.Item>
                                 <Form.Item
                                     name="Kontoname"
@@ -134,7 +182,7 @@ export default function AccountCreate() {
                                         },
                                     ]}
                                 >
-                                    <Input/>
+                                    <Input.TextArea/>
                                 </Form.Item>
 
                                 <Form.Item {...tailFormItemLayout}>
@@ -155,7 +203,7 @@ export default function AccountCreate() {
                                     {...formItemLayout}
                                     form={form}
                                     name="register"
-                                    // onFinish={onFinish}
+                                    onFinish={onFinish}
                                     scrollToFirstError
                                 >
 
@@ -196,7 +244,7 @@ export default function AccountCreate() {
                                         <Input/>
                                     </Form.Item>
 
-                                     <Form.Item
+                                    <Form.Item
                                         name="Adresse"
                                         label="Adresse"
                                         rules={[

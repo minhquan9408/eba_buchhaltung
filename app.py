@@ -110,7 +110,7 @@ def add_account():
             shelve.Shelf.close(konten)
             return request_data
         else:
-            return "Konto konnte nicht erstellt werden"
+            return "Konto konnte nicht erstellt werden", 400
 
 
 @app.route('/api/konten/update/<kontonummer>', methods=['POST'])
