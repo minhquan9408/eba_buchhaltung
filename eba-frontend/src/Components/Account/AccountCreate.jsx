@@ -1,21 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {fetchAllAccounts} from "../../services/service";
-import {
-    Button,
-    Cascader,
-    DatePicker,
-    Dropdown,
-    Form,
-    Input,
-    InputNumber,
-    Menu,
-    Select,
-    Spin,
-    Switch,
-    TreeSelect
-} from "antd";
+import {Button, Dropdown, Form, Input, InputNumber, Menu, Spin} from "antd";
 import {DownOutlined, UserOutlined} from "@ant-design/icons";
+import {useHistory} from "react-router-dom";
+import {Typography} from 'antd';
 
+const {Title} = Typography;
 const formItemLayout = {
     labelCol: {
         xs: {
@@ -50,7 +40,8 @@ const tailFormItemLayout = {
 export default function AccountCreate() {
     const [accounts, setAccounts] = useState()
     const [konto, setKonto] = useState("")
-
+    const history = useHistory()
+    const [isVorhanden, setIsVorhanden] = useState(false)
     useEffect(() => {
         fetchAllAccounts()
             .then(res => setAccounts(res))
@@ -86,41 +77,49 @@ export default function AccountCreate() {
 
         console.log(values.Kontonummer)
         const id = values.Kontonummer
-        // const myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
-        //
-        // const raw = JSON.stringify({
-        //     [id]: {
-        //         "Beschreibung": "test",
-        //         "Eroeffnungsbilanz": {
-        //             "Haben": 0,
-        //             "Soll": 0
-        //         },
-        //         "Jahresverkehrszahlen": {
-        //             "Haben": 0,
-        //             "Soll": 0
-        //         },
-        //         "Kontoname": "test",
-        //         "Kontonummer": "2000",
-        //         "Monatsverkehrszahlen": {
-        //             "Haben": 0,
-        //             "Soll": 0
-        //         },
-        //         "Buchungen": {}
-        //     }
-        // });
-        //
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: myHeaders,
-        //     body: raw,
-        //     redirect: 'follow'
-        // };
-        //
-        // fetch("/api/konten/add", requestOptions)
-        //     .then(response => response.text())
-        //     .then(result => console.log(result))
-        //     .catch(error => console.log('error', error));
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+            [id]: {
+                "Beschreibung": values.Beschreibung,
+                "Eroeffnungsbilanz": {
+                    "Haben": 0,
+                    "Soll": 0
+                },
+                "Jahresverkehrszahlen": {
+                    "Haben": 0,
+                    "Soll": 0
+                },
+                "Kontoname": values.Kontoname,
+                "Kontonummer": "2000",
+                "Monatsverkehrszahlen": {
+                    "Haben": 0,
+                    "Soll": 0
+                },
+                "Buchungen": {}
+            }
+        });
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("/api/konten/add", requestOptions)
+            .then(response => {
+                if (response.ok) {
+                    history.push("/account/overview")
+                    return response.json()
+                }
+                if (response.status === 400) {
+                    setIsVorhanden(true)
+                }
+            })
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
     }
 
     return (
@@ -128,7 +127,6 @@ export default function AccountCreate() {
             {!!accounts ?
                 (
                     <div>
-                        This is Account Create page {konto}
                         <Dropdown overlay={menu}>
                             <Button>
                                 Konto ausw&auml;hlen <DownOutlined/>
@@ -136,7 +134,8 @@ export default function AccountCreate() {
                         </Dropdown>
                         {konto === "sachkonto" &&
                         <>
-                            <h1>This is form for sachkonto</h1>
+                            <Title>Sachkonto erstellen</Title>
+
                             <Form
                                 {...formItemLayout}
                                 form={form}
@@ -152,12 +151,13 @@ export default function AccountCreate() {
                                         {
                                             required: true,
                                             type: 'number',
+                                            min: 1,
                                             max: 9999,
-                                            message: 'The input is not a number, max = 999'
+                                            message: 'Sachkonto bitte eine Zahl zwischen 1 - 9999 eingeben'
                                         }
                                     ]}
                                 >
-                                    <InputNumber min={1} max={9999}/>
+                                    <InputNumber/>
                                 </Form.Item>
                                 <Form.Item
                                     name="Kontoname"
@@ -169,7 +169,9 @@ export default function AccountCreate() {
                                         },
                                     ]}
                                 >
-                                    <Input/>
+                                    <Input style={{
+                                        width: 500,
+                                    }}/>
                                 </Form.Item>
 
                                 <Form.Item
@@ -182,7 +184,9 @@ export default function AccountCreate() {
                                         },
                                     ]}
                                 >
-                                    <Input.TextArea/>
+                                    <Input.TextArea style={{
+                                        width: 500,
+                                    }}/>
                                 </Form.Item>
 
                                 <Form.Item {...tailFormItemLayout}>
@@ -198,7 +202,7 @@ export default function AccountCreate() {
                         }
                         {konto === "debitor" && (
                             <>
-                                <h1>This is form for debitor</h1>
+                                <Title>Debitor erstellen</Title>
                                 <Form
                                     {...formItemLayout}
                                     form={form}
@@ -212,11 +216,15 @@ export default function AccountCreate() {
                                         label="Kontonummer"
                                         rules={[
                                             {
-                                                required: true
+                                                required: true,
+                                                type: 'number',
+                                                min: 10000,
+                                                max: 69999,
+                                                message: 'Debitoren bitte eine Zahl zwischen 10000 - 69999 eingeben'
                                             }
                                         ]}
                                     >
-                                        <Input/>
+                                        <InputNumber/>
                                     </Form.Item>
                                     <Form.Item
                                         name="Kontoname"
@@ -228,7 +236,24 @@ export default function AccountCreate() {
                                             },
                                         ]}
                                     >
-                                        <Input/>
+                                        <Input style={{
+                                            width: 500,
+                                        }}/>
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        name="Adresse"
+                                        label="Adresse"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Adresse eingeben',
+                                            },
+                                        ]}
+                                    >
+                                        <Input style={{
+                                        width: 500,
+                                    }}/>
                                     </Form.Item>
 
                                     <Form.Item
@@ -241,22 +266,10 @@ export default function AccountCreate() {
                                             },
                                         ]}
                                     >
-                                        <Input/>
+                                        <Input.TextArea style={{
+                                            width: 500,
+                                        }}/>
                                     </Form.Item>
-
-                                    <Form.Item
-                                        name="Adresse"
-                                        label="Adresse"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Beschreibung eingeben',
-                                            },
-                                        ]}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-
 
                                     <Form.Item {...tailFormItemLayout}>
                                         <Button type="primary" htmlType="submit">
@@ -268,13 +281,96 @@ export default function AccountCreate() {
                                     </Form.Item>
                                 </Form>
                             </>
-
                         )
                         }
                         {konto === "kreditor" &&
-                        <h1>This is form for kreditor</h1>
-                        }
+                        <>
+                            <Title>Kreditor erstellen</Title>
+                            <Form
+                                {...formItemLayout}
+                                form={form}
+                                name="register"
+                                onFinish={onFinish}
+                                scrollToFirstError
+                            >
 
+                                <Form.Item
+                                    name="Kontonummer"
+                                    label="Kontonummer"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            type: 'number',
+                                            min: 70000,
+                                            max: 99999,
+                                            message: 'Kreditoren bitte eine Zahl zwischen 70000 - 99999 eingeben'
+                                        }
+                                    ]}
+                                >
+                                    <InputNumber/>
+                                </Form.Item>
+                                <Form.Item
+                                    name="Kontoname"
+                                    label="Kontoname"
+
+                                    rules={[
+                                        {
+                                            required: true,
+                                        },
+                                    ]}
+                                >
+                                    <Input style={{
+                                        width: 500,
+                                    }}/>
+                                </Form.Item>
+
+                                <Form.Item
+                                    name="Adresse"
+                                    label="Adresse"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Adresse eingeben',
+                                        },
+                                    ]}
+                                >
+                                    <Input style={{
+                                        width: 500,
+                                    }}/>
+                                </Form.Item>
+
+                                <Form.Item
+                                    name="Beschreibung"
+                                    label="Beschreibung"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Beschreibung eingeben',
+                                        },
+                                    ]}
+                                >
+                                    <Input.TextArea style={{
+                                        width: 500,
+                                    }}/>
+                                </Form.Item>
+
+                                <Form.Item {...tailFormItemLayout}>
+                                    <Button type="primary" htmlType="submit">
+                                        Konto erstellen
+                                    </Button>
+                                    <Button htmlType="button" onClick={onReset}>
+                                        Reset
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+                        </>
+                        }
+                        {isVorhanden && (
+                            <p type="danger" style={{textAlign: "center", color: "red"}}> Kontonummer ist
+                                schon
+                                vorhanden, w&auml;hlen Sie andere Nummer
+                                aus </p>
+                        )}
                     </div>
 
                 ) :

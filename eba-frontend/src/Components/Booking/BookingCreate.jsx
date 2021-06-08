@@ -44,13 +44,18 @@ const tailFormItemLayout = {
 
 export default function BookingCreate() {
     const [booking, setBooking] = useState({})
-    // const [nextId, setNextId] = useState(Object.keys(booking).length)
-const [accounts, setAccounts] = useState({})
+    const [accounts, setAccounts] = useState({})
+    const [buchungTextState, setBuchungTextState] = useState("")
     useEffect(() => {
         fetchAllBookings()
             .then(res => setBooking(res))
         fetchAllAccounts().then(res => setAccounts(res))
     }, [])
+
+    useEffect(() => {
+
+    }, [buchungTextState])
+
     const [form] = Form.useForm();
     const history = useHistory()
 
@@ -71,10 +76,17 @@ const [accounts, setAccounts] = useState({})
                 "Buchungsnummer": id,
                 "Buchungsschluessel": values.Buchungschluessel,
                 "Buchungstext": values.Buchungstext,
+                "Steuerkonto": values.Steuerkonto,
                 "Betrag": values.Betrag,
+                "SollBetragMitSteuer": values.Betrag,
+                "HabenBetragMitSteuer": values.Betrag,
                 "Haben": values.Haben,
                 "Soll": values.Soll,
-                "Steuerkonto": values.Steuerkonto
+                "SollSteuerKonto": "",
+                "HabenSteuerKonto": "",
+                "SollSteuerBetrag": "",
+                "HabenSteuerBetrag": "",
+
             }
         });
         console.log(raw)
@@ -106,44 +118,68 @@ const [accounts, setAccounts] = useState({})
     const onBookingChange = (value) => {
         switch (value) {
             case 'Rechnungsausgang':
+                setBuchungTextState('Rechnungsausgang')
                 form.setFieldsValue({
                     Buchungschluessel: 'RA',
                 });
                 return;
 
             case 'Zahlungseingang':
+                setBuchungTextState('Zahlungseingang')
                 form.setFieldsValue({
                     Buchungschluessel: 'ZE',
                 });
                 return;
 
             case 'Rechnungseingang':
+                setBuchungTextState('Rechnungseingang')
+                console.log(buchungTextState)
                 form.setFieldsValue({
                     Buchungschluessel: 'RE',
                 });
                 return;
             case 'Zahlungsausgang':
+                setBuchungTextState('Zahlungsausgang')
+                console.log(buchungTextState)
                 form.setFieldsValue({
                     Buchungschluessel: 'ZA',
                 });
                 return;
 
             case 'Buchung':
+                setBuchungTextState('Buchung')
                 form.setFieldsValue({
                     Buchungschluessel: 'UM',
                 });
+
                 return;
             case 'Sachkonten':
+                setBuchungTextState('Sachkonten')
                 form.setFieldsValue({
                     Buchungschluessel: 'SA',
                 });
                 return;
             case 'Er&ouml;ffnungsbuchung 01.01.':
+                setBuchungTextState('Eroeffnungsbilanz')
                 form.setFieldsValue({
                     Buchungschluessel: 'ER',
                 });
         }
     }
+    let accountsWithName = []
+    for (const accountId in accounts) {
+        let acc = {
+            "Kontonummer": accountId,
+            "Kontoname": accounts[accountId]["Kontoname"]
+        }
+        accountsWithName.push(acc)
+    }
+    //TODO: SHOULD KONTO 1400 1600 9000 9008 9009 BE EXCLUDED?
+    const nurKreditoren = accountsWithName.filter(acc => acc["Kontonummer"] >= 70000 && acc["Kontonummer"] < 100000)
+    const nurDebitoren = accountsWithName.filter(acc => acc["Kontonummer"] >= 10000 && acc["Kontonummer"] < 70000)
+    const nurSachkonten = accountsWithName.filter(acc => acc["Kontonummer"] >= 1 && acc["Kontonummer"] < 10000)
+    const bankKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 1200)
+    const erloeseKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 8400)
 
     return (
         <>
@@ -259,23 +295,6 @@ const [accounts, setAccounts] = useState({})
                                 </Form.Item>
 
                                 <Form.Item
-                                    name="Haben"
-                                    label="Haben-Konto"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please select Haben-Konto!',
-                                        },
-                                    ]}
-                                >
-                                    <Input
-                                        style={{
-                                            width: 100,
-                                        }}
-                                    />
-                                </Form.Item>
-
-                                <Form.Item
                                     name="Soll"
                                     label="Soll-Konto"
                                     rules={[
@@ -284,13 +303,145 @@ const [accounts, setAccounts] = useState({})
                                             message: 'Please select Soll-Konto!',
                                         },
                                     ]}
+                                    shouldUpdate={(prevValues, currentValues) => prevValues.Buchungstext !== currentValues.Buchungstext}
                                 >
-                                    <Input
+                                    <Select
+                                        placeholder="W&auml;hlen Sie ein Konto aus"
+                                        allowClear
                                         style={{
-                                            width: 100,
+                                            width: 500,
                                         }}
-                                    />
+                                    >
+                                        {buchungTextState === '' &&
+                                        accountsWithName.map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Rechnungseingang' &&
+                                        accountsWithName.map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Zahlungseingang' &&
+                                        bankKonto
+                                            .map((acc) => (
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
+                                        }
+                                        {buchungTextState === 'Rechnungsausgang' &&
+                                        nurDebitoren
+                                            .map((acc) => (
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
+                                        }
+                                        {buchungTextState === 'Zahlungsausgang' &&
+                                        nurKreditoren
+                                            .map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Buchung' &&
+                                        nurSachkonten
+                                            .map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Sachkonten' &&
+                                        accountsWithName.map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Eroeffnungsbilanz' &&
+                                        accountsWithName.map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                    </Select>
                                 </Form.Item>
+
+                                <Form.Item
+                                    name="Haben"
+                                    label="Haben-Konto"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please select Haben-Konto!',
+                                        },
+                                    ]}
+                                    shouldUpdate={(prevValues, currentValues) => prevValues.Buchungstext !== currentValues.Buchungstext}
+                                >
+                                    <Select
+                                        placeholder="W&auml;hlen Sie ein Konto aus"
+                                        allowClear
+                                        style={{
+                                            width: 500,
+                                        }}
+                                    >
+                                        {buchungTextState === '' &&
+                                        accountsWithName.map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Zahlungsausgang' &&
+                                        bankKonto
+                                            .map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Zahlungseingang' &&
+                                        nurDebitoren
+                                            .map((acc) => (
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
+                                        }
+                                        {buchungTextState === 'Rechnungseingang' &&
+                                        nurKreditoren
+                                            .map((acc) => (
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
+                                        }
+                                        {buchungTextState === 'Rechnungsausgang' &&
+                                        erloeseKonto
+                                            .map((acc) => (
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
+                                        }
+                                        {buchungTextState === 'Buchung' &&
+                                        nurSachkonten
+                                            .map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Sachkonten' &&
+                                        nurSachkonten
+                                            .map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                        {buchungTextState === 'Eroeffnungsbilanz' &&
+                                        accountsWithName.map((acc) => (
+                                            <Select.Option
+                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                        ))
+                                        }
+                                    </Select>
+                                </Form.Item>
+
 
                                 <Form.Item {...tailFormItemLayout}>
                                     <Button type="primary" htmlType="submit">

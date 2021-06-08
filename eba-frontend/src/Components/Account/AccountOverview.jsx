@@ -29,8 +29,8 @@ let kreditoren = []
                     }
                 }
         console.log(sachKonten)
-        console.log(debitoren.length)
-        console.log(kreditoren.length)
+        console.log(debitoren)
+        console.log(kreditoren)
     }
 
 

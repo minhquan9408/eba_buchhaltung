@@ -70,6 +70,21 @@ konten["1600"] = {"Kontonummer": "1600", "Kontoname": "Verbindlichkeiten",
                   "Jahresverkehrszahlen": {"Soll": 0, "Haben": 0},
                   "Buchungen": {}
                   }
+konten["1800"] = {"Kontonummer": "1800", "Kontoname": "Privatentnahmen",
+                  "Beschreibung": "Entnahmen aus dem Gesellschaftsvermögen ins Privatvermögen",
+                  "Eroeffnungsbilanz": {"Soll": 0, "Haben": 0},
+                  "Monatsverkehrszahlen": {"Soll": 0, "Haben": 0},
+                  "Jahresverkehrszahlen": {"Soll": 0, "Haben": 0},
+                  "Buchungen": {}
+                  }
+konten["1890"] = {"Kontonummer": "1890", "Kontoname": "Privateinlagen",
+                  "Beschreibung": "Einlagen aus dem Privatvermögen ins Gesellschaftsvermögen",
+                  "Eroeffnungsbilanz": {"Soll": 0, "Haben": 0},
+                  "Monatsverkehrszahlen": {"Soll": 0, "Haben": 0},
+                  "Jahresverkehrszahlen": {"Soll": 0, "Haben": 0},
+                  "Buchungen": {}
+                  }
+
 konten["9000"] = {"Kontonummer": "9000", "Kontoname": "Saldenvorträge Sachkonten",
                   "Beschreibung": "Gegenkonto für EB-Buchungen der Sachkonten",
                   "Eroeffnungsbilanz": {"Soll": 0, "Haben": 0},
@@ -91,20 +106,21 @@ konten["9009"] = {"Kontonummer": "9009", "Kontoname": "Saldenvorträge Kreditore
                   "Jahresverkehrszahlen": {"Soll": 0, "Haben": 0},
                   "Buchungen": {}
                   }
-konten["1800"] = {"Kontonummer": "1800", "Kontoname": "Privatentnahmen",
-                  "Beschreibung": "Entnahmen aus dem Gesellschaftsvermögen ins Privatvermögen",
+konten["8400"] = {"Kontonummer": "8400", "Kontoname": "Erlöse 19% MwSt",
+                  "Beschreibung": "Erlöse 19% MwSt",
                   "Eroeffnungsbilanz": {"Soll": 0, "Haben": 0},
                   "Monatsverkehrszahlen": {"Soll": 0, "Haben": 0},
                   "Jahresverkehrszahlen": {"Soll": 0, "Haben": 0},
                   "Buchungen": {}
                   }
-konten["1890"] = {"Kontonummer": "1890", "Kontoname": "Privateinlagen",
-                  "Beschreibung": "Einlagen aus dem Privatvermögen ins Gesellschaftsvermögen",
+konten["1200"] = {"Kontonummer": "1200", "Kontoname": "Bank",
+                  "Beschreibung": "Bankkonto",
                   "Eroeffnungsbilanz": {"Soll": 0, "Haben": 0},
                   "Monatsverkehrszahlen": {"Soll": 0, "Haben": 0},
                   "Jahresverkehrszahlen": {"Soll": 0, "Haben": 0},
                   "Buchungen": {}
                   }
+
 
 # Steuerkonto
 konten["1571"] = {"Kontonummer": "1890", "Kontoname": "Vorsteuer 7%",

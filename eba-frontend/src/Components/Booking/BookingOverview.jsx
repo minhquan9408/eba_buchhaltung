@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {fetchAllBookings} from "../../services/service";
+import {fetchAllAccounts, fetchAllBookings} from "../../services/service";
 import {Spin} from "antd";
 import {Table} from 'antd';
 
 export default function BookingOverview() {
     const [bookings, setBookings] = useState()
+
     useEffect(() => {
         fetchAllBookings()
             .then(res => setBookings(res))
@@ -41,7 +42,7 @@ export default function BookingOverview() {
                 },
                 {
                     title: 'Betrag',
-                    dataIndex: 'Betrag',
+                    dataIndex: 'SollBetragMitSteuer',
                     key: 'sollBetrag',
                 }
             ]
@@ -56,7 +57,7 @@ export default function BookingOverview() {
                 },
                 {
                     title: 'Betrag',
-                    dataIndex: 'Betrag',
+                    dataIndex: 'HabenBetragMitSteuer',
                     key: 'habenBetrag',
                 }
             ]
@@ -67,13 +68,13 @@ export default function BookingOverview() {
             children: [
                 {
                     title: 'Konto',
-                    dataIndex: 'Steuerkonto',
-                    key: 'habenKonto',
+                    dataIndex: 'SollSteuerKonto',
+                    key: 'sollSteuerKonto',
                 },
                 {
                     title: 'Betrag',
-                    dataIndex: '',
-                    key: 'habenBetrag',
+                    dataIndex: 'SollSteuerBetrag',
+                    key: 'SollSteuerBetrag',
                 }
             ]
         },
@@ -82,28 +83,28 @@ export default function BookingOverview() {
             children: [
                 {
                     title: 'Konto',
-                    dataIndex: 'Steuerkonto',
-                    key: 'habenKonto',
+                    dataIndex: 'HabenSteuerKonto',
+                    key: 'habenSteuerKonto',
                 },
                 {
                     title: 'Betrag',
-                    dataIndex: '',
-                    key: 'habenBetrag',
+                    dataIndex: 'HabenSteuerBetrag',
+                    key: 'HabenSteuerBetrag',
                 }
             ]
         }
     ];
 
-    let data = [];
+    let dataBookings = [];
     for (const booking in bookings) {
-        data.push(bookings[booking])
-        console.log(data)
+        dataBookings.push(bookings[booking])
+        console.log(dataBookings)
     }
     return (
         <>
             {!!bookings ?
                 (
-                    <Table bordered columns={columns} dataSource={data}/>
+                    <Table bordered columns={columns} dataSource={dataBookings}/>
                 ) :
                 (
                     <Spin/>
