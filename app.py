@@ -43,44 +43,51 @@ def add_booking():
     x = list(request_data.keys())
     print(request_data)
     buchungsId = x[0]
-    habenKonto = request_data[buchungsId]["Haben"]
-    sollKonto = request_data[buchungsId]["Soll"]
-
+    neueBuchung = request_data[buchungsId]
+    habenKonto = neueBuchung["HabenKonto"]
+    sollKonto = neueBuchung["SollKonto"]
+    buchungText = neueBuchung["Buchungstext"]
     # Caculate Betrag und Steuer
-    betrag = request_data[buchungsId]["Betrag"]
-    steuerKonto = request_data[buchungsId]["Steuerkonto"]
+    betrag = neueBuchung["Betrag"]
+    steuerKonto = neueBuchung["Steuerkonto"]
     betragMitSteuer = betrag_mit_steuer(steuerKonto, betrag)
     steuerBetrag = steuer_betrag(steuerKonto, betrag)
-    request_data[buchungsId]["Betrag"] = betrag_mit_steuer("", betrag)
-    request_data[buchungsId]["SollBetragMitSteuer"] = betrag_mit_steuer("", betrag)
-    request_data[buchungsId]["HabenBetragMitSteuer"] = betrag_mit_steuer("", betrag)
+    neueBuchung["Betrag"] = betrag_mit_steuer("", betrag)
+    neueBuchung["SollBetragMitSteuer"] = betrag_mit_steuer("", betrag)
+    neueBuchung["HabenBetragMitSteuer"] = betrag_mit_steuer("", betrag)
 
     if steuerKonto == '1571' or steuerKonto == '1576':
-        request_data[buchungsId]["SollSteuerBetrag"] = steuerBetrag
-        request_data[buchungsId]["SollSteuerKonto"] = steuerKonto
-        request_data[buchungsId]["SollBetragMitSteuer"] = betragMitSteuer
+        neueBuchung["SollSteuerBetrag"] = steuerBetrag
+        neueBuchung["SollSteuerKonto"] = steuerKonto
+        neueBuchung["SollBetragMitSteuer"] = betragMitSteuer
 
     if steuerKonto == '1771' or steuerKonto == '1776':
-        request_data[buchungsId]["HabenSteuerBetrag"] = steuerBetrag
-        request_data[buchungsId]["HabenSteuerKonto"] = steuerKonto
-        request_data[buchungsId]["HabenBetragMitSteuer"] = betragMitSteuer
+        neueBuchung["HabenSteuerBetrag"] = steuerBetrag
+        neueBuchung["HabenSteuerKonto"] = steuerKonto
+        neueBuchung["HabenBetragMitSteuer"] = betragMitSteuer
 
     #
     buchungsschluessel = request_data[buchungsId]["Buchungsschluessel"]
-    print(betrag)
-    print(f'relevant Konto in Haben {habenKonto}')
-    print(f'relevant Konto in Soll {sollKonto}')
 
     # TODO: UPDATE Betrag for relevant KONTO in konten.db
-    with shelve.open("konten.db") as konten:
+    with shelve.open("konten.db", writeback=True) as konten:
+        if buchungText == "Eroeffnungsbuchung":
+            print(betragMitSteuer)
+            print(konten[habenKonto])
+            konten[habenKonto]["EroeffnungsbilanzHabenWert"] = betragMitSteuer
+            konten[sollKonto]["EroeffnungsbilanzSollWert"] = betragMitSteuer
+
+
+
+
         shelve.Shelf.close(konten)
 
-    with shelve.open("buchungen.db") as buchungen:
+    with shelve.open("buchungen.db", writeback=True) as buchungen:
         newBuchungsschuessel = increment_booking_keys(buchungen, buchungsschluessel)
-        request_data[buchungsId]["Buchungsschluessel"] = newBuchungsschuessel
+        neueBuchung["Buchungsschluessel"] = newBuchungsschuessel
         if buchungsId not in buchungen:
-            print(request_data[buchungsId])
-            buchungen[buchungsId] = request_data[buchungsId]
+            print(neueBuchung)
+            buchungen[buchungsId] = neueBuchung
             shelve.Shelf.close(buchungen)
             return request_data
         else:

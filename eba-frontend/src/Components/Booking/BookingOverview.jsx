@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {fetchAllAccounts, fetchAllBookings} from "../../services/service";
-import {Spin} from "antd";
-import {Table} from 'antd';
+import {fetchAllBookings} from "../../services/service";
+import {Spin, Table} from "antd";
 
 export default function BookingOverview() {
     const [bookings, setBookings] = useState()
@@ -37,7 +36,7 @@ export default function BookingOverview() {
             children: [
                 {
                     title: 'Konto',
-                    dataIndex: 'Soll',
+                    dataIndex: 'SollKonto',
                     key: 'sollKonto',
                 },
                 {
@@ -52,7 +51,7 @@ export default function BookingOverview() {
             children: [
                 {
                     title: 'Konto',
-                    dataIndex: 'Haben',
+                    dataIndex: 'HabenKonto',
                     key: 'habenKonto',
                 },
                 {

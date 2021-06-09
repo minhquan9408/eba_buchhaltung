@@ -82,21 +82,13 @@ export default function AccountCreate() {
 
         const raw = JSON.stringify({
             [id]: {
-                "Beschreibung": values.Beschreibung,
-                "Eroeffnungsbilanz": {
-                    "Haben": 0,
-                    "Soll": 0
-                },
-                "Jahresverkehrszahlen": {
-                    "Haben": 0,
-                    "Soll": 0
-                },
+                "Kontonummer": values.Kontonummer,
                 "Kontoname": values.Kontoname,
-                "Kontonummer": "2000",
-                "Monatsverkehrszahlen": {
-                    "Haben": 0,
-                    "Soll": 0
-                },
+                "Beschreibung": values.Beschreibung,
+                "EroeffnungsbilanzHabenWert":0 ,
+                "EroeffnungsbilanzSollWert": 0,
+                "JahresverkehrszahlenHabenWert": 0,
+                "JahresverkehrszahlenSollWert":0,
                 "Buchungen": {}
             }
         });

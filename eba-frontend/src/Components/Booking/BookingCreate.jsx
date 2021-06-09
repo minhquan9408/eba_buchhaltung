@@ -7,7 +7,7 @@ import {
     Form,
     Select,
     Input,
-    DatePicker,
+    DatePicker, InputNumber,
 } from "antd";
 
 
@@ -80,8 +80,8 @@ export default function BookingCreate() {
                 "Betrag": values.Betrag,
                 "SollBetragMitSteuer": values.Betrag,
                 "HabenBetragMitSteuer": values.Betrag,
-                "Haben": values.Haben,
-                "Soll": values.Soll,
+                "HabenKonto": values.HabenKonto,
+                "SollKonto": values.SollKonto,
                 "SollSteuerKonto": "",
                 "HabenSteuerKonto": "",
                 "SollSteuerBetrag": "",
@@ -159,7 +159,7 @@ export default function BookingCreate() {
                     Buchungschluessel: 'SA',
                 });
                 return;
-            case 'Er&ouml;ffnungsbuchung 01.01.':
+            case 'Eroeffnungsbuchung':
                 setBuchungTextState('Eroeffnungsbilanz')
                 form.setFieldsValue({
                     Buchungschluessel: 'ER',
@@ -180,7 +180,8 @@ export default function BookingCreate() {
     const nurSachkonten = accountsWithName.filter(acc => acc["Kontonummer"] >= 1 && acc["Kontonummer"] < 10000)
     const bankKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 1200)
     const erloeseKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 8400)
-
+    const mWStKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 1771 || acc["Kontonummer"] == 1776)
+    const vorSteuerKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 1571 || acc["Kontonummer"] == 1576)
     return (
         <>
             {!!booking ?
@@ -232,7 +233,7 @@ export default function BookingCreate() {
                                         <Select.Option value="Zahlungsausgang">Zahlungsausgang</Select.Option>
                                         <Select.Option value="Buchung">Buchung</Select.Option>
                                         <Select.Option value="Sachkonten">Sachkonten</Select.Option>
-                                        <Select.Option value="Er&ouml;ffnungsbuchung 01.01.">Er&ouml;ffnungsbuchung
+                                        <Select.Option value="Eroeffnungsbuchung">Er&ouml;ffnungsbuchung
                                             01.01.</Select.Option>
                                     </Select>
                                 </Form.Item>
@@ -263,6 +264,7 @@ export default function BookingCreate() {
                                     ]}
                                 >
                                     <Input
+                                        min={0}
                                         style={{
                                             width: 100
                                         }}
@@ -295,7 +297,7 @@ export default function BookingCreate() {
                                 </Form.Item>
 
                                 <Form.Item
-                                    name="Soll"
+                                    name="SollKonto"
                                     label="Soll-Konto"
                                     rules={[
                                         {
@@ -341,16 +343,16 @@ export default function BookingCreate() {
                                         {buchungTextState === 'Zahlungsausgang' &&
                                         nurKreditoren
                                             .map((acc) => (
-                                            <Select.Option
-                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
-                                        ))
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
                                         }
                                         {buchungTextState === 'Buchung' &&
                                         nurSachkonten
                                             .map((acc) => (
-                                            <Select.Option
-                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
-                                        ))
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
                                         }
                                         {buchungTextState === 'Sachkonten' &&
                                         accountsWithName.map((acc) => (
@@ -368,7 +370,7 @@ export default function BookingCreate() {
                                 </Form.Item>
 
                                 <Form.Item
-                                    name="Haben"
+                                    name="HabenKonto"
                                     label="Haben-Konto"
                                     rules={[
                                         {
@@ -394,9 +396,9 @@ export default function BookingCreate() {
                                         {buchungTextState === 'Zahlungsausgang' &&
                                         bankKonto
                                             .map((acc) => (
-                                            <Select.Option
-                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
-                                        ))
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
                                         }
                                         {buchungTextState === 'Zahlungseingang' &&
                                         nurDebitoren
@@ -422,16 +424,16 @@ export default function BookingCreate() {
                                         {buchungTextState === 'Buchung' &&
                                         nurSachkonten
                                             .map((acc) => (
-                                            <Select.Option
-                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
-                                        ))
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
                                         }
                                         {buchungTextState === 'Sachkonten' &&
                                         nurSachkonten
                                             .map((acc) => (
-                                            <Select.Option
-                                                value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
-                                        ))
+                                                <Select.Option
+                                                    value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
+                                            ))
                                         }
                                         {buchungTextState === 'Eroeffnungsbilanz' &&
                                         accountsWithName.map((acc) => (
