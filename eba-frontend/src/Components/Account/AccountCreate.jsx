@@ -85,10 +85,12 @@ export default function AccountCreate() {
                 "Kontonummer": values.Kontonummer,
                 "Kontoname": values.Kontoname,
                 "Beschreibung": values.Beschreibung,
-                "EroeffnungsbilanzHabenWert":0 ,
+                "EroeffnungsbilanzHabenWert": 0,
                 "EroeffnungsbilanzSollWert": 0,
                 "JahresverkehrszahlenHabenWert": 0,
-                "JahresverkehrszahlenSollWert":0,
+                "JahresverkehrszahlenSollWert": 0,
+                "Saldo": 0,
+                "Adresse": values.Adresse,
                 "Buchungen": {}
             }
         });
@@ -244,8 +246,8 @@ export default function AccountCreate() {
                                         ]}
                                     >
                                         <Input style={{
-                                        width: 500,
-                                    }}/>
+                                            width: 500,
+                                        }}/>
                                     </Form.Item>
 
                                     <Form.Item

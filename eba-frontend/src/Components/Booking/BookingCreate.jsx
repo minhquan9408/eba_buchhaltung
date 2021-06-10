@@ -177,7 +177,14 @@ export default function BookingCreate() {
     //TODO: SHOULD KONTO 1400 1600 9000 9008 9009 BE EXCLUDED?
     const nurKreditoren = accountsWithName.filter(acc => acc["Kontonummer"] >= 70000 && acc["Kontonummer"] < 100000)
     const nurDebitoren = accountsWithName.filter(acc => acc["Kontonummer"] >= 10000 && acc["Kontonummer"] < 70000)
-    const nurSachkonten = accountsWithName.filter(acc => acc["Kontonummer"] >= 1 && acc["Kontonummer"] < 10000)
+    const nurSachkonten = accountsWithName.filter(acc =>
+        acc["Kontonummer"] >= 1 &&
+        acc["Kontonummer"] < 10000 &&
+        acc["Kontonummer"] != 1571 &&
+        acc["Kontonummer"] != 1576 &&
+        acc["Kontonummer"] != 1771 &&
+        acc["Kontonummer"] != 1776
+    )
     const bankKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 1200)
     const erloeseKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 8400)
     const mWStKonto = accountsWithName.filter(acc => acc["Kontonummer"] == 1771 || acc["Kontonummer"] == 1776)
