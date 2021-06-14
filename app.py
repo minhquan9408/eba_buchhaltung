@@ -1,25 +1,18 @@
 import shelve
-from utils import *
 import flask
-from flask import Flask, render_template, request
+from flask import Flask, request
+from utils import *
 
 app = Flask(__name__)
 
-
-# @app.route('/')
-# @app.route('/home')
-# def home():
-#     return render_template('home.html')
-
-
 # Controller for bookings
-@app.route('/api/buchungen/<buchungsnummer>', methods=['GET'])
-def get_booking(buchungsnummer):
-    dic = {}
-    with shelve.open("buchungen.db") as buchungen:
-        if buchungsnummer in buchungen:
-            dic[buchungsnummer] = buchungen[buchungsnummer]
-        return render_template("booking.html", data=dic)
+# @app.route('/api/buchungen/<buchungsnummer>', methods=['GET'])
+# def get_booking(buchungsnummer):
+#     dic = {}
+#     with shelve.open("buchungen.db") as buchungen:
+#         if buchungsnummer in buchungen:
+#             dic[buchungsnummer] = buchungen[buchungsnummer]
+#         return render_template("booking.html", data=dic)
 
 
 @app.route("/api/buchungen/all", methods=['GET'])
@@ -125,13 +118,13 @@ def update_booking():
 
 
 # Controller for Accounts
-@app.route('/api/konten/<kontosnummer>', methods=['GET'])
-def get_account(kontosnummer):
-    dic = {}
-    with shelve.open("konten.db") as konten:
-        if kontosnummer in konten:
-            dic[kontosnummer] = konten[kontosnummer]
-        return render_template("account.html", data=dic)
+# @app.route('/api/konten/<kontosnummer>', methods=['GET'])
+# def get_account(kontosnummer):
+#     dic = {}
+#     with shelve.open("konten.db") as konten:
+#         if kontosnummer in konten:
+#             dic[kontosnummer] = konten[kontosnummer]
+#         return render_template("account.html", data=dic)
 
 
 @app.route("/api/konten/all", methods=['GET'])
@@ -173,24 +166,9 @@ def update_account(kontonummer):
             return "Konto nicht existiert"
 
 
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
-
-
-def is_debitor(kontonummer_in_string):
-    kontonummer = int(kontonummer_in_string)
-    if 10000 <= kontonummer < 70000:
-        return True
-    return False
-
-
-def is_kreditor(kontonummer_in_string):
-    kontonummer = int(kontonummer_in_string)
-    if 70000 <= kontonummer < 100000:
-        return True
-    return False
-
+# @app.route("/about")
+# def about():
+#     return render_template('about.html', title='About')
 
 if __name__ == '__main__':
     app.run(debug=True)

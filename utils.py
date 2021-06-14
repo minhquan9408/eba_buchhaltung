@@ -1,4 +1,3 @@
-
 def increment_booking_keys(buchungen, buchungsschluessel):
     i = 0
     for buchung in buchungen.values():
@@ -36,6 +35,15 @@ def add_betrag(betrag, betrag2):
     return format(result, '.2f')
 
 
-test1 = "11001"
-test2 = "10002"
-print(int(test1) < int(test2))
+def is_debitor(kontonummer_in_string):
+    kontonummer = int(kontonummer_in_string)
+    if 10000 <= kontonummer < 70000:
+        return True
+    return False
+
+
+def is_kreditor(kontonummer_in_string):
+    kontonummer = int(kontonummer_in_string)
+    if 70000 <= kontonummer < 100000:
+        return True
+    return False
