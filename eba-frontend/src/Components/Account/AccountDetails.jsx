@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
-import {Table} from "antd";
+import React from 'react'
+import {Table, Typography} from "antd";
 
 export default function AccountDetails(props) {
+  const {Title} = Typography;
   const konten = props.data
   const columns = [
     {
@@ -31,11 +32,15 @@ export default function AccountDetails(props) {
           title: 'Soll',
           dataIndex: 'SollBetragMitSteuer',
           key: 'SollBetragMitSteuer',
+          align: 'right'
+
         },
         {
           title: 'Haben',
           dataIndex: 'HabenBetragMitSteuer',
           key: 'HabenBetragMitSteuer',
+          align: 'right'
+
         }
       ]
     },
@@ -51,26 +56,53 @@ export default function AccountDetails(props) {
       {konten.map((konto) => {
         const buchungen = konto["Buchungen"]
         let data = []
-        for (const buchung in buchungen){
-          data.push(buchungen[buchung])
+        let sumSollBetrag = 0
+        let sumHabenBetrag = 0
+        for (const buchung in buchungen) {
+          if (buchungen.hasOwnProperty(buchung)){
+            data.push(buchungen[buchung])
+          let sollBetrag = parseFloat(buchungen[buchung]["SollBetragMitSteuer"])
+          let habenBetrag = parseFloat(buchungen[buchung]["HabenBetragMitSteuer"])
+          if (!isNaN(sollBetrag)) sumSollBetrag += sollBetrag
+          if (!isNaN(habenBetrag)) sumHabenBetrag += habenBetrag
+          }
         }
-        if (data.length != 0)
-        return (
-          <div>
-            <p>Konto {konto["Kontonummer"]} - {konto["Kontoname"]}</p>
-            <Table
-              bordered
-              columns={columns}
-              dataSource={data}
-              rowClassName={
-                (record) => record.Buchungsnummer === 'Summe' ? "summe-row" : ""
-              }
-            />
-          </div>
+        const summary = {
+          "Beschreibung": "",
+          "Betrag": "",
+          "Buchungsdatum": "",
+          "Buchungsnummer": "Summe",
+          "Buchungsschluessel": "",
+          "Buchungstext": "",
+          "GegenKonto": "",
+          "HabenBetragMitSteuer": sumHabenBetrag.toFixed(2),
+          "HabenKonto": "",
+          "HabenSteuerBetrag": "",
+          "HabenSteuerKonto": "",
+          "SollBetragMitSteuer": sumSollBetrag.toFixed(2),
+          "SollKonto": "",
+          "SollSteuerBetrag": "",
+          "SollSteuerKonto": "",
+          "Steuerkonto": "",
+        }
+        data.push(summary)
+        if (data.length > 1)
+          return (
+            <div>
+              <Title level = {4}>Konto {konto["Kontonummer"]} - {konto["Kontoname"]}</Title>
+              <Table
+                bordered
+                columns={columns}
+                dataSource={data}
+                rowClassName={
+                  (record) => record.Buchungsnummer === 'Summe' ? "summe-row" : ""
+                }
+              />
+            </div>
 
-        )
+          )
       })
-        }
-        </div>
-        )
       }
+    </div>
+  )
+}

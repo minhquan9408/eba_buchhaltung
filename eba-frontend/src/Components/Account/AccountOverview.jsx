@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {fetchAllAccounts} from "../../services/service";
-import {Spin} from "antd";
+import {Spin, Typography} from "antd";
 import AccountDetails from "./AccountDetails";
 
 export default function AccountOverview() {
+    const {Title} = Typography;
+
     const [accounts, setAccounts] = useState()
     useEffect(() => {
         fetchAllAccounts()
@@ -41,18 +43,18 @@ let kreditoren = []
             {!!accounts ?
                 (
                     <div>
-                        <h1>Sachkonten</h1>
+            <Title level={2}>Sachkonten</Title>
             {sachKonten.length > 0 ?
                 (
                     <div>
-                        {/*<AccountDetails></AccountDetails>*/}
+                        <AccountDetails data = {sachKonten}></AccountDetails>
                     </div>
                 ) :
                 (
                     <div>Kein Sachkonto </div>
                 )
             }
-            <h1>Debitoren</h1>
+            <Title level={2}>Debitoren</Title>
             {debitoren.length > 0 ?
                 (
                     <div>
@@ -63,11 +65,11 @@ let kreditoren = []
                     <div>Kein Debitoren </div>
                 )
             }
-            <h1>Kreditoren</h1>
+            <Title level={2}>Kreditoren</Title>
             {kreditoren.length > 0 ?
                 (
                     <div>
-                        {/*<AccountDetails></AccountDetails>*/}
+                        <AccountDetails data = {kreditoren}></AccountDetails>
                     </div>
                 ) :
                 (

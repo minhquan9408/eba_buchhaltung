@@ -159,7 +159,6 @@ export default function BookingOverview() {
                    dataSource={dataBookings}
                    rowClassName={
                      (record) => record.Buchungsnummer === 'Summe' ? "summe-row" : ""
-
                    }
             />
           </div>

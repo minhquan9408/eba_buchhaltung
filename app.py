@@ -73,9 +73,12 @@ def add_booking():
             if is_kreditor(habenKonto):
                 konten["1600"]["JahresverkehrszahlenHabenWert"] = add_betrag(
                     konten["1600"]["JahresverkehrszahlenHabenWert"], neueBuchung["HabenBetragMitSteuer"])
-            konten[habenKonto]["Buchungen"][buchungsId] = neueBuchung
-            konten[habenKonto]["Buchungen"][buchungsId]["GegenKonto"] = sollKonto
+
+            neueBuchungfuerHabenKonto = neueBuchung.copy()
+            neueBuchungfuerHabenKonto["GegenKonto"] = sollKonto
+            neueBuchungfuerHabenKonto["SollBetragMitSteuer"] = 0
             konten[habenKonto]["JahresverkehrszahlenHabenWert"] = newJVHabenWert
+            konten[habenKonto]["Buchungen"][buchungsId] = neueBuchungfuerHabenKonto
 
             # Update Soll Konto
             if is_debitor(sollKonto):
@@ -84,9 +87,12 @@ def add_booking():
             if is_kreditor(sollKonto):
                 konten["1600"]["JahresverkehrszahlenSollWert"] = add_betrag(
                     konten["1600"]["JahresverkehrszahlenSollWert"], neueBuchung["SollBetragMitSteuer"])
-            konten[sollKonto]["Buchungen"][buchungsId] = neueBuchung
-            konten[sollKonto]["Buchungen"][buchungsId]["GegenKonto"] = habenKonto
+
+            neueBuchungfuerSollKonto = neueBuchung.copy()
+            neueBuchungfuerSollKonto["GegenKonto"] = habenKonto
+            neueBuchungfuerSollKonto["HabenBetragMitSteuer"] = 0
             konten[sollKonto]["JahresverkehrszahlenSollWert"] = newJVSollWert
+            konten[sollKonto]["Buchungen"][buchungsId] = neueBuchungfuerSollKonto
 
             if buchungText == "Eroeffnungsbuchung":
                 konten[habenKonto]["EroeffnungsbilanzHabenWert"] = betragMitSteuer

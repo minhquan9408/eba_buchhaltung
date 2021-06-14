@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start-server": "cd .. && venv\\Scripts\\python app.py",
-    "start": "concurrently \"npm run start-server\" \"react-scripts start\" ",
+    "start": "npm install && concurrently \"npm run start-server\" \"react-scripts start\" ",
     "start-fe": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

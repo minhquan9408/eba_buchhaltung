@@ -47,3 +47,4 @@ def is_kreditor(kontonummer_in_string):
     if 70000 <= kontonummer < 100000:
         return True
     return False
+
