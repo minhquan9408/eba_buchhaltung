@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {fetchAllAccounts} from "../../services/service";
 import {Spin} from "antd";
+import AccountDetails from "./AccountDetails";
 
 export default function AccountOverview() {
     const [accounts, setAccounts] = useState()
@@ -17,7 +18,7 @@ let kreditoren = []
     if(!!accounts) {
         for (const account in accounts) {
             const konto = accounts[account]
-            console.log(konto)
+
                     if (account > 0 && account < 10000) {
                         sachKonten.push(konto)
                     }
@@ -44,7 +45,7 @@ let kreditoren = []
             {sachKonten.length > 0 ?
                 (
                     <div>
-                        This is Accounts Overview page für Sachkonten
+                        {/*<AccountDetails></AccountDetails>*/}
                     </div>
                 ) :
                 (
@@ -55,7 +56,7 @@ let kreditoren = []
             {debitoren.length > 0 ?
                 (
                     <div>
-                        This is Accounts Overview page für Debitoren
+                        <AccountDetails data = {debitoren}></AccountDetails>
                     </div>
                 ) :
                 (
@@ -66,7 +67,7 @@ let kreditoren = []
             {kreditoren.length > 0 ?
                 (
                     <div>
-                        This is Accounts Overview page für Kreditoren
+                        {/*<AccountDetails></AccountDetails>*/}
                     </div>
                 ) :
                 (

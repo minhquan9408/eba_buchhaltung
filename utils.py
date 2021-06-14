@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 
 def increment_booking_keys(buchungen, buchungsschluessel):
     i = 0
@@ -38,29 +36,6 @@ def add_betrag(betrag, betrag2):
     return format(result, '.2f')
 
 
-test = {'1': {'Buchungsdatum': '06/01/2021', 'Buchungsnummer': 1, 'Buchungsschluessel': 'ZE',
-              'Buchungstext': 'Zahlungseingang', 'Betrag': '12000', 'Haben': '10002', 'Soll': '70001',
-              'Steuerkonto': ' '},
-        '2': {'Buchungsdatum': '06/01/2021', 'Buchungsnummer': 1, 'Buchungsschluessel': 'ZE',
-              'Buchungstext': 'Zahlungseingang', 'Betrag': '99999', 'Haben': '10002', 'Soll': '70001',
-              'Steuerkonto': ' '},
-        }
-test2 = {"Kontonummer": "800", "Kontoname": "Gezeichnetes Kapital",
-         "Beschreibung": "Gezeichnetes Kapital",
-         "EroeffnungsbilanzHabenWert": 0,
-         "EroeffnungsbilanzSollWert": 0,
-         "JahresverkehrszahlenHabenWert": 0,
-         "JahresverkehrszahlenSollWert": 0,
-         "Buchungen": {}
-         }
-# erg = test.values()
-betrag1 = test['1']['Betrag']
-res = betrag_mit_steuer('1571', '2500')
-bla = add_betrag(res, 2000)
-print(bla)
-erg = increment_booking_keys(test, "RA")
-print(erg)
-test2["Buchungen"]["bla"] = "THIS IS TEST"
-test2["EroeffnungsbilanzHabenWert"] = res
-
-print(test2)
+test1 = "11001"
+test2 = "10002"
+print(int(test1) < int(test2))

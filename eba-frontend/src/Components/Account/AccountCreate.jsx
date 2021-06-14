@@ -128,7 +128,7 @@ export default function AccountCreate() {
                         </Dropdown>
                         {konto === "sachkonto" &&
                         <>
-                            <Title>Sachkonto erstellen</Title>
+                            <Title>Sachkonto</Title>
 
                             <Form
                                 {...formItemLayout}
@@ -196,7 +196,7 @@ export default function AccountCreate() {
                         }
                         {konto === "debitor" && (
                             <>
-                                <Title>Debitor erstellen</Title>
+                                <Title>Debitor</Title>
                                 <Form
                                     {...formItemLayout}
                                     form={form}
@@ -279,7 +279,7 @@ export default function AccountCreate() {
                         }
                         {konto === "kreditor" &&
                         <>
-                            <Title>Kreditor erstellen</Title>
+                            <Title>Kreditor</Title>
                             <Form
                                 {...formItemLayout}
                                 form={form}

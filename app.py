@@ -6,14 +6,10 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
-@app.route('/')
-@app.route('/home')
-def home():
-    # return render_template('home.html')
-    return """<form action="" method="get">
-                    <input type="text" name="celsius">
-                    <input type="submit" value="Convert">
-                  </form>"""
+# @app.route('/')
+# @app.route('/home')
+# def home():
+#     return render_template('home.html')
 
 
 # Controller for bookings
@@ -41,8 +37,8 @@ def get_all_booking():
 def add_booking():
     request_data = request.get_json()
     x = list(request_data.keys())
-    print(request_data)
     buchungsId = x[0]
+    buchungsschluessel = request_data[buchungsId]["Buchungsschluessel"]
     neueBuchung = request_data[buchungsId]
     habenKonto = neueBuchung["HabenKonto"]
     sollKonto = neueBuchung["SollKonto"]
@@ -66,25 +62,44 @@ def add_booking():
         neueBuchung["HabenSteuerKonto"] = steuerKonto
         neueBuchung["HabenBetragMitSteuer"] = betragMitSteuer
 
-    #
-    buchungsschluessel = request_data[buchungsId]["Buchungsschluessel"]
-
-    # TODO: UPDATE Betrag for relevant KONTO in konten.db
-    with shelve.open("konten.db", writeback=True) as konten:
-        if buchungText == "Eroeffnungsbuchung":
-            print(betragMitSteuer)
-            print(konten[habenKonto])
-            konten[habenKonto]["EroeffnungsbilanzHabenWert"] = betragMitSteuer
-            konten[sollKonto]["EroeffnungsbilanzSollWert"] = betragMitSteuer
-
-
-
-
-        shelve.Shelf.close(konten)
-
     with shelve.open("buchungen.db", writeback=True) as buchungen:
         newBuchungsschuessel = increment_booking_keys(buchungen, buchungsschluessel)
         neueBuchung["Buchungsschluessel"] = newBuchungsschuessel
+        # TODO: UPDATE Betrag for relevant KONTO in konten.db
+        # TODO: UPDATE Steuer Konto
+        with shelve.open("konten.db", writeback=True) as konten:
+            altJVHabenWert = konten[habenKonto]["JahresverkehrszahlenHabenWert"]
+            altJVSollWert = konten[sollKonto]["JahresverkehrszahlenSollWert"]
+            newJVHabenWert = add_betrag(altJVHabenWert, neueBuchung["HabenBetragMitSteuer"])
+            newJVSollWert = add_betrag(altJVSollWert, neueBuchung["SollBetragMitSteuer"])
+            # Update Haben Konto #
+            # Update 1400 and 1600
+            if is_debitor(habenKonto):
+                konten["1400"]["JahresverkehrszahlenHabenWert"] = add_betrag(
+                    konten["1400"]["JahresverkehrszahlenHabenWert"], neueBuchung["HabenBetragMitSteuer"])
+            if is_kreditor(habenKonto):
+                konten["1600"]["JahresverkehrszahlenHabenWert"] = add_betrag(
+                    konten["1600"]["JahresverkehrszahlenHabenWert"], neueBuchung["HabenBetragMitSteuer"])
+            konten[habenKonto]["Buchungen"][buchungsId] = neueBuchung
+            konten[habenKonto]["Buchungen"][buchungsId]["GegenKonto"] = sollKonto
+            konten[habenKonto]["JahresverkehrszahlenHabenWert"] = newJVHabenWert
+
+            # Update Soll Konto
+            if is_debitor(sollKonto):
+                konten["1400"]["JahresverkehrszahlenSollWert"] = add_betrag(
+                    konten["1400"]["JahresverkehrszahlenSollWert"], neueBuchung["SollBetragMitSteuer"])
+            if is_kreditor(sollKonto):
+                konten["1600"]["JahresverkehrszahlenSollWert"] = add_betrag(
+                    konten["1600"]["JahresverkehrszahlenSollWert"], neueBuchung["SollBetragMitSteuer"])
+            konten[sollKonto]["Buchungen"][buchungsId] = neueBuchung
+            konten[sollKonto]["Buchungen"][buchungsId]["GegenKonto"] = habenKonto
+            konten[sollKonto]["JahresverkehrszahlenSollWert"] = newJVSollWert
+
+            if buchungText == "Eroeffnungsbuchung":
+                konten[habenKonto]["EroeffnungsbilanzHabenWert"] = betragMitSteuer
+                konten[sollKonto]["EroeffnungsbilanzSollWert"] = betragMitSteuer
+
+            shelve.Shelf.close(konten)
         if buchungsId not in buchungen:
             print(neueBuchung)
             buchungen[buchungsId] = neueBuchung
@@ -125,7 +140,6 @@ def get_all_accounts():
     with shelve.open("konten.db") as konten:
         for key in konten:
             dic[key] = konten[key]
-        # return render_template("account.html", data=dic)
         return dic
 
 
@@ -162,6 +176,20 @@ def update_account(kontonummer):
 @app.route("/about")
 def about():
     return render_template('about.html', title='About')
+
+
+def is_debitor(kontonummer_in_string):
+    kontonummer = int(kontonummer_in_string)
+    if 10000 <= kontonummer < 70000:
+        return True
+    return False
+
+
+def is_kreditor(kontonummer_in_string):
+    kontonummer = int(kontonummer_in_string)
+    if 70000 <= kontonummer < 100000:
+        return True
+    return False
 
 
 if __name__ == '__main__':
