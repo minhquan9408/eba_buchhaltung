@@ -6,7 +6,6 @@ import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import BookingOverview from "./Booking/BookingOverview";
 import AccountOverview from "./Account/AccountOverview";
 import SubMenu from "antd/es/menu/SubMenu";
-import AccountUpdate from "./Account/AccountUpdate";
 import AccountCreate from "./Account/AccountCreate";
 import BookingCreate from "./Booking/BookingCreate";
 

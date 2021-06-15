@@ -16,8 +16,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start-server": "cd .. && venv\\Scripts\\python app.py",
-    "start": "npm install && concurrently \"npm run start-server\" \"react-scripts start\" ",
+    "start-server": "cd .. && venv\\Scripts\\activate.bat && venv\\Scripts\\python app.py",
+    "start": "npm install && npm update --force && concurrently \"npm run start-server\" \"react-scripts start\" ",
     "start-fe": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

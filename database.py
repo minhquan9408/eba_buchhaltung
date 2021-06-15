@@ -6,12 +6,6 @@ konten = shelve.open("konten.db")
 buchungen.clear()
 konten.clear()
 
-# Buchungen
-# buchungen["1"] = {"Buchungsnummer": "1", "Buchungstext": "Eröffnungsbuchung", "Buchungsschlüssel": "EB1",
-#                   "Buchungsdatum": "2021-05-01T00:00:00", "Soll": {"Konto": "9000", "Betrag": 40000},
-#                   "Haben": {"Konto": "00800", "Betrag": 40000}}
-
-
 # Sondernkonto
 # TODO: attribute für relevant Buchungen ?
 konten["800"] = {"Kontonummer": "800", "Kontoname": "Gezeichnetes Kapital",
@@ -23,7 +17,7 @@ konten["800"] = {"Kontonummer": "800", "Kontoname": "Gezeichnetes Kapital",
                  "Saldo": 0,
                  "Buchungen": {}
                  }
-konten["1400"] = {"Kontonummer": "1400", "Kontoname": "Forderungen",
+konten["1400"] = {"Kontonummer": "1400", "Kontoname": "Forderungen aus Lieferungen und Leistungen",
                   "Beschreibung": "Forderungen aus Lieferungen und Leistungen",
                   "EroeffnungsbilanzHabenWert": 0,
                   "EroeffnungsbilanzSollWert": 0,
@@ -32,7 +26,7 @@ konten["1400"] = {"Kontonummer": "1400", "Kontoname": "Forderungen",
                   "Saldo": 0,
                   "Buchungen": {}
                   }
-konten["1600"] = {"Kontonummer": "1600", "Kontoname": "Verbindlichkeiten",
+konten["1600"] = {"Kontonummer": "1600", "Kontoname": "Verbindlichkeiten aus Lieferungen und Leistungen",
                   "Beschreibung": "Verbindlichkeiten aus Lieferungen und Leistungen",
                   "EroeffnungsbilanzHabenWert": 0,
                   "EroeffnungsbilanzSollWert": 0,
@@ -107,7 +101,7 @@ konten["1200"] = {"Kontonummer": "1200", "Kontoname": "Bank",
                   }
 
 # Steuerkonto
-konten["1571"] = {"Kontonummer": "1890", "Kontoname": "Vorsteuer 7%",
+konten["1571"] = {"Kontonummer": "1571", "Kontoname": "Vorsteuer 7%",
                   "Beschreibung": "Abziehbare Vorsteuer", "Wert": 0.07,
                   "EroeffnungsbilanzHabenWert": 0,
                   "EroeffnungsbilanzSollWert": 0,
@@ -116,7 +110,7 @@ konten["1571"] = {"Kontonummer": "1890", "Kontoname": "Vorsteuer 7%",
                   "Saldo": 0,
                   "Buchungen": {}
                   }
-konten["1576"] = {"Kontonummer": "1890", "Kontoname": "Vorsteuer 19%",
+konten["1576"] = {"Kontonummer": "1576", "Kontoname": "Vorsteuer 19%",
                   "Beschreibung": "Abziehbare Vorsteuer", "Wert": 0.19,
                   "EroeffnungsbilanzHabenWert": 0,
                   "EroeffnungsbilanzSollWert": 0,
@@ -125,7 +119,7 @@ konten["1576"] = {"Kontonummer": "1890", "Kontoname": "Vorsteuer 19%",
                   "Saldo": 0,
                   "Buchungen": {}
                   }
-konten["1771"] = {"Kontonummer": "1890", "Kontoname": "Umsatzsteuer 7%",
+konten["1771"] = {"Kontonummer": "1771", "Kontoname": "Umsatzsteuer 7%",
                   "Beschreibung": "Abzuführende Umsatzsteuer", "Wert": 0.07,
                   "EroeffnungsbilanzHabenWert": 0,
                   "EroeffnungsbilanzSollWert": 0,
@@ -134,7 +128,7 @@ konten["1771"] = {"Kontonummer": "1890", "Kontoname": "Umsatzsteuer 7%",
                   "Saldo": 0,
                   "Buchungen": {}
                   }
-konten["1776"] = {"Kontonummer": "1890", "Kontoname": "Umsatzsteuer 19%",
+konten["1776"] = {"Kontonummer": "1776", "Kontoname": "Umsatzsteuer 19%",
                   "Beschreibung": "Abzuführende Umsatzsteuer", "Wert": 0.19,
                   "EroeffnungsbilanzHabenWert": 0,
                   "EroeffnungsbilanzSollWert": 0,
