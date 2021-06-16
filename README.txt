@@ -1,5 +1,4 @@
-1. Um das System zu starten brauchen Sie npm von node.js. Installieren Sie NodeJS von https://nodejs.org/en/
-2. Gehen Sie in den Projekt-Ordner und öffnen dort die Kommandozeile
-3. Tippen Sie venv\Scripts\activate.bat um das virtuelle Environment von Python zu starten
-3. cd zu Ordner eba-frontend
-4. Tippen Sie in den Kommandozeile: npm run start. 
+1. Gehen Sie in den Projekt-Ordner. Benutzen Sie "pipenv install -r requirements.txt" um alle notwendigen Pakages zu installieren
+2. Führen Sie "pipenv shell" aus, um virtuelle Umgebung zu starten.
+3. Führen Sie "flask run" um das Backend zu starten
+3. Für das Frontend öffnen Sie index.html in frontend Ordner

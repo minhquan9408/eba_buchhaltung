@@ -361,7 +361,7 @@ export default function BookingCreate() {
                     ))
                     }
                     {buchungTextState === 'Rechnungseingang' &&
-                    accountsWithName.map((acc) => (
+                    nurSachkonten.map((acc) => (
                       <Select.Option
                         value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
                     ))
@@ -395,7 +395,7 @@ export default function BookingCreate() {
                       ))
                     }
                     {buchungTextState === 'Sachkonten' &&
-                    accountsWithName.map((acc) => (
+                    nurSachkonten.map((acc) => (
                       <Select.Option
                         value={acc["Kontonummer"]}>{acc["Kontonummer"]} - {acc["Kontoname"]}</Select.Option>
                     ))
