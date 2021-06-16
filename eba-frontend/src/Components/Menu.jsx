@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import {Layout, Menu} from 'antd';
 import {CalendarOutlined, EuroOutlined, GroupOutlined, TableOutlined, UserOutlined,} from '@ant-design/icons';
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import {HashRouter as Router, Link, Route} from "react-router-dom";
 import BookingOverview from "./Booking/BookingOverview";
 import AccountOverview from "./Account/AccountOverview";
 import SubMenu from "antd/es/menu/SubMenu";

@@ -1,8 +1,8 @@
 {
   "name": "eba-frontend",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
-  "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@testing-library/jest-dom": "^5.12.0",

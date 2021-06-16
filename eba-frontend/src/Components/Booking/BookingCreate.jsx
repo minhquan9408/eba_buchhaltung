@@ -93,7 +93,7 @@ export default function BookingCreate() {
       redirect: 'follow'
     };
 
-    fetch("/api/buchungen/add", requestOptions)
+    fetch("http://127.0.0.1:5000/api/buchungen/add", requestOptions)
       .then(response => {
         if (response.ok) {
           history.push("/booking/overview")

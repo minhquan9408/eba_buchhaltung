@@ -1,12 +1,16 @@
 import shelve
 import flask
+from flask_cors import CORS, cross_origin
 from flask import Flask, request
 from utils import *
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route("/api/buchungen/all", methods=['GET'])
+@cross_origin()
 def get_all_booking():
     dic = {}
     with shelve.open("buchungen.db") as buchungen:
@@ -17,6 +21,7 @@ def get_all_booking():
 
 
 @app.route('/api/buchungen/add', methods=['POST'])
+@cross_origin()
 def add_booking():
     request_data = request.get_json()
     x = list(request_data.keys())
@@ -116,6 +121,7 @@ def add_booking():
 
 
 @app.route('/api/buchungen/update', methods=['POST'])
+@cross_origin()
 def update_booking():
     request_data = request.get_json()
     print(request_data)
@@ -131,6 +137,7 @@ def update_booking():
 
 
 @app.route("/api/konten/all", methods=['GET'])
+@cross_origin()
 def get_all_accounts():
     dic = {}
     with shelve.open("konten.db") as konten:
@@ -140,6 +147,7 @@ def get_all_accounts():
 
 
 @app.route('/api/konten/add', methods=['POST'])
+@cross_origin()
 def add_account():
     request_data = request.get_json()
     print(request_data)
@@ -155,6 +163,7 @@ def add_account():
 
 
 @app.route('/api/konten/update/<kontonummer>', methods=['POST'])
+@cross_origin()
 def update_account(kontonummer):
     request_data = request.get_json()
     print(request_data)
