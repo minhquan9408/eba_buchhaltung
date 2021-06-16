@@ -48,3 +48,9 @@ def is_kreditor(kontonummer_in_string):
         return True
     return False
 
+
+def is_sachkonto(kontonummer_in_string):
+    kontonummer = int(kontonummer_in_string)
+    if 1 <= kontonummer < 10000:
+        return True
+    return False

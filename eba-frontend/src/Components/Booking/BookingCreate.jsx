@@ -60,13 +60,7 @@ export default function BookingCreate() {
   const history = useHistory()
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
     const datum = values.date.format('DD.MM.YYYY')
-    console.log(datum)
-    console.log(values.Buchungstext)
-
-//TODO: CALCULATE STEUER
-
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const id = Object.keys(booking).length + 1
