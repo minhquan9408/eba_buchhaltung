@@ -68,15 +68,6 @@ konten["1600"] = {"Kontonummer": "1600", "Kontoname": "Verbindlichkeiten aus Lie
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
                   "Saldo": 0,
-                  "Buchungen": {}
-                  }
-konten["1800"] = {"Kontonummer": "1800", "Kontoname": "Privatentnahmen",
-                  "Beschreibung": "Entnahmen aus dem Gesellschaftsvermögen ins Privatvermögen",
-                  "EroeffnungsbilanzHabenWert": 0,
-                  "EroeffnungsbilanzSollWert": 0,
-                  "JahresverkehrszahlenHabenWert": 0,
-                  "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
                   "Buchungen": {
                       "Soll": {
                           "Beschreibung": "Summe Kreditoren Soll",
@@ -113,6 +104,15 @@ konten["1800"] = {"Kontonummer": "1800", "Kontoname": "Privatentnahmen",
                           "Steuerkonto": "",
                       }
                   }
+                  }
+konten["1800"] = {"Kontonummer": "1800", "Kontoname": "Privatentnahmen",
+                  "Beschreibung": "Entnahmen aus dem Gesellschaftsvermögen ins Privatvermögen",
+                  "EroeffnungsbilanzHabenWert": 0,
+                  "EroeffnungsbilanzSollWert": 0,
+                  "JahresverkehrszahlenHabenWert": 0,
+                  "JahresverkehrszahlenSollWert": 0,
+                  "Saldo": 0,
+                  "Buchungen": {}
                   }
 konten["1890"] = {"Kontonummer": "1890", "Kontoname": "Privateinlagen",
                   "Beschreibung": "Einlagen aus dem Privatvermögen ins Gesellschaftsvermögen",
@@ -212,42 +212,50 @@ konten["1776"] = {"Kontonummer": "1776", "Kontoname": "Umsatzsteuer 19%",
 # Apple
 konten["70001"] = {"Kontonummer": "70001", "Kontoname": "Apple Firma",
                    "EroeffnungsbilanzHabenWert": 0,
+                   "Beschreibung": "Apple Kreditor",
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
                    "Saldo": 0,
                    "Buchungen": {},
-                   "Adresse": {"Straße": "Paul-Wittsack_Straße", "Hausnummer": 10, "PLZ": 68519, "Ort": "Mannheim"}}
+                   "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
+                   }
 
 # OTTO
 konten["70002"] = {"Kontonummer": "70002", "Kontoname": "Otto Firma",
+                   "Beschreibung": "Otto Kreditor",
                    "EroeffnungsbilanzHabenWert": 0,
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
                    "Saldo": 0,
                    "Buchungen": {},
-                   "Adresse": {"Straße": "Paul-Wittsack_Straße", "Hausnummer": 10, "PLZ": 68519, "Ort": "Mannheim"}}
+                   "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
+                   }
 
 # Debitoren
 # Kunde 1
 konten["10001"] = {"Kontonummer": "10001", "Kontoname": "Kunde 1",
+                   "Beschreibung": "Erster Kunde",
                    "EroeffnungsbilanzHabenWert": 0,
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
                    "Saldo": 0,
                    "Buchungen": {},
-                   "Adresse": {"Straße": "Paul-Wittsack_Straße", "Hausnummer": 10, "PLZ": 68519, "Ort": "Mannheim"}}
+                   "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
+                   }
 
 # Kunde 2
 konten["10002"] = {"Kontonummer": "10002", "Kontoname": "Kunde 2",
+                   "Beschreibung": "Zweiter Kunde",
                    "EroeffnungsbilanzHabenWert": 0,
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
                    "Saldo": 0,
                    "Buchungen": {},
-                   "Adresse": {"Straße": "Paul-Wittsack_Straße", "Hausnummer": 10, "PLZ": 68519, "Ort": "Mannheim"}}
+                   "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
+                   }
 buchungen.close()
 konten.close()

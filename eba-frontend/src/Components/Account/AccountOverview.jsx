@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {fetchAllAccounts} from "../../services/service";
 import {Spin, Typography} from "antd";
 import AccountDetails from "./AccountDetails";
+import ExportKontenBlatt from "../Export/ExportKontenBlatt";
+import {prepareAccount} from "../utils";
 
 export default function AccountOverview() {
     const {Title} = Typography;
@@ -10,36 +12,22 @@ export default function AccountOverview() {
     useEffect(() => {
         fetchAllAccounts()
             .then(res => setAccounts(res))
-
     }, [])
 
+let sachKonten = prepareAccount(0, 10000, accounts)
+let debitoren = prepareAccount(10000, 70000, accounts)
+let kreditoren = prepareAccount(70000, 100000, accounts)
 
-let sachKonten = []
-let debitoren = []
-let kreditoren = []
-    if(!!accounts) {
-        for (const account in accounts) {
-            const konto = accounts[account]
-
-                    if (account > 0 && account < 10000) {
-                        sachKonten.push(konto)
-                    }
-                    if (account >= 10000 && account < 70000) {
-                        debitoren.push(konto)
-                    }
-                    if (account >= 70000 && account < 100000) {
-                        kreditoren.push(konto)
-                    }
-                }
-        console.log(sachKonten)
-        console.log(debitoren)
-        console.log(kreditoren)
-    }
-
-
-
+  console.log(sachKonten)
+  console.log(debitoren)
+  console.log(kreditoren)
     return (
         <>
+          <ExportKontenBlatt
+            sachKonten = {sachKonten}
+            debitoren = {debitoren}
+            kreditoren = {kreditoren}
+          />
             {!!accounts ?
                 (
                     <div>
@@ -47,7 +35,7 @@ let kreditoren = []
             {sachKonten.length > 0 ?
                 (
                     <div>
-                        <AccountDetails data = {sachKonten}></AccountDetails>
+                        <AccountDetails data = {sachKonten}/>
                     </div>
                 ) :
                 (
@@ -58,7 +46,7 @@ let kreditoren = []
             {debitoren.length > 0 ?
                 (
                     <div>
-                        <AccountDetails data = {debitoren}></AccountDetails>
+                        <AccountDetails data = {debitoren}/>
                     </div>
                 ) :
                 (
@@ -69,7 +57,7 @@ let kreditoren = []
             {kreditoren.length > 0 ?
                 (
                     <div>
-                        <AccountDetails data = {kreditoren}></AccountDetails>
+                        <AccountDetails data = {kreditoren}/>
                     </div>
                 ) :
                 (

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {fetchAllBookings} from "../../services/service";
 import {Spin, Table} from "antd";
 import {Typography} from 'antd';
+import ExportJournal from "../Export/ExportJournal";
 
 export default function BookingOverview() {
   const {Title} = Typography;
@@ -24,7 +25,7 @@ export default function BookingOverview() {
       key: 'buchungsdatum',
     },
     {
-      title: 'Buchungsschluessel',
+      title: 'Buchungsschl\u00FCssel',
       dataIndex: 'Buchungsschluessel',
       key: 'buchungsschluessel',
     },
@@ -148,9 +149,13 @@ export default function BookingOverview() {
   console.log(dataBookings)
   return (
     <>
-      <Title style={{textAlign: 'center'}}>
+      <span>
+         <Title style={{textAlign: 'center'}}>
         Journal
       </Title>
+        <ExportJournal data={dataBookings}/>
+      </span>
+
       {!!bookings ?
         (
           <div>
@@ -160,6 +165,7 @@ export default function BookingOverview() {
                    rowClassName={
                      (record) => record.Buchungsnummer === 'Summe' ? "summe-row" : ""
                    }
+                   pagination={false}
             />
           </div>
         ) :

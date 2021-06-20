@@ -101,10 +101,14 @@ def add_booking():
             if steuerKonto == '1571' or steuerKonto == '1576':
                 konten[steuerKonto]["Buchungen"][buchungsId] = neueBuchungfuerSollKonto.copy()
                 konten[steuerKonto]["Buchungen"][buchungsId]["SollBetragMitSteuer"] = steuerBetrag
+                konten[steuerKonto]["JahresverkehrszahlenSollWert"] = add_betrag(
+                    konten[steuerKonto]["JahresverkehrszahlenSollWert"], steuerBetrag)
 
             if steuerKonto == '1771' or steuerKonto == '1776':
                 konten[steuerKonto]["Buchungen"][buchungsId] = neueBuchungfuerHabenKonto.copy()
                 konten[steuerKonto]["Buchungen"][buchungsId]["HabenBetragMitSteuer"] = steuerBetrag
+                konten[steuerKonto]["JahresverkehrszahlenHabenWert"] = add_betrag(
+                    konten[steuerKonto]["JahresverkehrszahlenHabenWert"], steuerBetrag)
 
             if buchungText == "Eroeffnungsbuchung":
                 konten[habenKonto]["EroeffnungsbilanzHabenWert"] = betragMitSteuer

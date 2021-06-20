@@ -80,8 +80,8 @@ export default function BookingCreate() {
         "SollKonto": values.SollKonto,
         "SollSteuerKonto": "",
         "HabenSteuerKonto": "",
-        "SollSteuerBetrag": "",
-        "HabenSteuerBetrag": "",
+        "SollSteuerBetrag": 0,
+        "HabenSteuerBetrag": 0,
 
       }
     });

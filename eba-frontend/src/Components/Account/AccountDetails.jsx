@@ -1,5 +1,6 @@
 import React from 'react'
 import {Table, Typography} from "antd";
+import {prepareRowBookingForAccount} from "../utils";
 
 export default function AccountDetails(props) {
   const {Title} = Typography;
@@ -40,7 +41,6 @@ export default function AccountDetails(props) {
           dataIndex: 'HabenBetragMitSteuer',
           key: 'HabenBetragMitSteuer',
           align: 'right'
-
         }
       ]
     },
@@ -54,50 +54,22 @@ export default function AccountDetails(props) {
 
     <div>
       {konten.map((konto) => {
-        const buchungen = konto["Buchungen"]
-        let data = []
-        let sumSollBetrag = 0
-        let sumHabenBetrag = 0
-        for (const buchung in buchungen) {
-          if (buchungen.hasOwnProperty(buchung)){
-            data.push(buchungen[buchung])
-          let sollBetrag = parseFloat(buchungen[buchung]["SollBetragMitSteuer"])
-          let habenBetrag = parseFloat(buchungen[buchung]["HabenBetragMitSteuer"])
-          if (!isNaN(sollBetrag)) sumSollBetrag += sollBetrag
-          if (!isNaN(habenBetrag)) sumHabenBetrag += habenBetrag
-          }
-        }
-        const summary = {
-          "Beschreibung": "",
-          "Betrag": "",
-          "Buchungsdatum": "",
-          "Buchungsnummer": "Summe",
-          "Buchungsschluessel": "",
-          "Buchungstext": "",
-          "GegenKonto": "",
-          "HabenBetragMitSteuer": sumHabenBetrag.toFixed(2),
-          "HabenKonto": "",
-          "HabenSteuerBetrag": "",
-          "HabenSteuerKonto": "",
-          "SollBetragMitSteuer": sumSollBetrag.toFixed(2),
-          "SollKonto": "",
-          "SollSteuerBetrag": "",
-          "SollSteuerKonto": "",
-          "Steuerkonto": "",
-        }
-        data.push(summary)
+        let data = prepareRowBookingForAccount(konto)
         if (data.length > 1)
           return (
             <div>
-              <Title level = {4}>Konto {konto["Kontonummer"]} - {konto["Kontoname"]}</Title>
+              <Title level={4}>Konto {konto["Kontonummer"]} - {konto["Kontoname"]}</Title>
               <Table
                 bordered
                 columns={columns}
                 dataSource={data}
                 rowClassName={
-                  (record) => record.Buchungsnummer === 'Summe' ? "summe-row" : ""
+                  (record) => record.Buchungsdatum === 'Summe' ? "summe-row" : ""
                 }
+                pagination={false}
               />
+              <br/>
+              <br/>
             </div>
 
           )
