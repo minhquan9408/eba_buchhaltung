@@ -14,7 +14,8 @@ konten["800"] = {"Kontonummer": "800", "Kontoname": "Gezeichnetes Kapital",
                  "EroeffnungsbilanzSollWert": 0,
                  "JahresverkehrszahlenHabenWert": 0,
                  "JahresverkehrszahlenSollWert": 0,
-                 "Saldo": 0,
+                 "SaldoSoll": 0,
+                 "SaldoHaben": 0,
                  "Buchungen": {}
                  }
 konten["1400"] = {"Kontonummer": "1400", "Kontoname": "Forderungen aus Lieferungen und Leistungen",
@@ -23,7 +24,8 @@ konten["1400"] = {"Kontonummer": "1400", "Kontoname": "Forderungen aus Lieferung
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {
                       "Soll": {
                           "Beschreibung": "Summe Debitoren Soll",
@@ -67,7 +69,8 @@ konten["1600"] = {"Kontonummer": "1600", "Kontoname": "Verbindlichkeiten aus Lie
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {
                       "Soll": {
                           "Beschreibung": "Summe Kreditoren Soll",
@@ -111,7 +114,8 @@ konten["1800"] = {"Kontonummer": "1800", "Kontoname": "Privatentnahmen",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["1890"] = {"Kontonummer": "1890", "Kontoname": "Privateinlagen",
@@ -120,7 +124,8 @@ konten["1890"] = {"Kontonummer": "1890", "Kontoname": "Privateinlagen",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 
@@ -130,7 +135,8 @@ konten["9000"] = {"Kontonummer": "9000", "Kontoname": "Saldenvorträge Sachkonte
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["9008"] = {"Kontonummer": "9008", "Kontoname": "Saldenvorträge Debitoren",
@@ -139,7 +145,8 @@ konten["9008"] = {"Kontonummer": "9008", "Kontoname": "Saldenvorträge Debitoren
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["9009"] = {"Kontonummer": "9009", "Kontoname": "Saldenvorträge Kreditoren",
@@ -148,7 +155,8 @@ konten["9009"] = {"Kontonummer": "9009", "Kontoname": "Saldenvorträge Kreditore
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["8400"] = {"Kontonummer": "8400", "Kontoname": "Erlöse 19% MwSt",
@@ -157,7 +165,8 @@ konten["8400"] = {"Kontonummer": "8400", "Kontoname": "Erlöse 19% MwSt",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["1200"] = {"Kontonummer": "1200", "Kontoname": "Bank",
@@ -166,7 +175,8 @@ konten["1200"] = {"Kontonummer": "1200", "Kontoname": "Bank",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 
@@ -177,7 +187,8 @@ konten["1571"] = {"Kontonummer": "1571", "Kontoname": "Vorsteuer 7%",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["1576"] = {"Kontonummer": "1576", "Kontoname": "Vorsteuer 19%",
@@ -186,7 +197,8 @@ konten["1576"] = {"Kontonummer": "1576", "Kontoname": "Vorsteuer 19%",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["1771"] = {"Kontonummer": "1771", "Kontoname": "Umsatzsteuer 7%",
@@ -195,7 +207,8 @@ konten["1771"] = {"Kontonummer": "1771", "Kontoname": "Umsatzsteuer 7%",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 konten["1776"] = {"Kontonummer": "1776", "Kontoname": "Umsatzsteuer 19%",
@@ -204,7 +217,8 @@ konten["1776"] = {"Kontonummer": "1776", "Kontoname": "Umsatzsteuer 19%",
                   "EroeffnungsbilanzSollWert": 0,
                   "JahresverkehrszahlenHabenWert": 0,
                   "JahresverkehrszahlenSollWert": 0,
-                  "Saldo": 0,
+                  "SaldoSoll": 0,
+                  "SaldoHaben": 0,
                   "Buchungen": {}
                   }
 
@@ -216,7 +230,8 @@ konten["70001"] = {"Kontonummer": "70001", "Kontoname": "Apple Firma",
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
-                   "Saldo": 0,
+                   "SaldoSoll": 0,
+                   "SaldoHaben": 0,
                    "Buchungen": {},
                    "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
                    }
@@ -228,7 +243,8 @@ konten["70002"] = {"Kontonummer": "70002", "Kontoname": "Otto Firma",
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
-                   "Saldo": 0,
+                   "SaldoSoll": 0,
+                   "SaldoHaben": 0,
                    "Buchungen": {},
                    "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
                    }
@@ -241,7 +257,8 @@ konten["10001"] = {"Kontonummer": "10001", "Kontoname": "Kunde 1",
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
-                   "Saldo": 0,
+                   "SaldoSoll": 0,
+                   "SaldoHaben": 0,
                    "Buchungen": {},
                    "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
                    }
@@ -253,7 +270,8 @@ konten["10002"] = {"Kontonummer": "10002", "Kontoname": "Kunde 2",
                    "EroeffnungsbilanzSollWert": 0,
                    "JahresverkehrszahlenHabenWert": 0,
                    "JahresverkehrszahlenSollWert": 0,
-                   "Saldo": 0,
+                   "SaldoSoll": 0,
+                   "SaldoHaben": 0,
                    "Buchungen": {},
                    "Adresse": "Paul-Wittsack-Straße 10, 68519 Mannheim"
                    }

@@ -7,7 +7,6 @@ import autoTable from "jspdf-autotable";
 
 export default function ExportTaxReturn(props) {
   const data = props.data
-  console.log(data)
   const exportTaxReturn = () => {
     const unit = 'mm'
     const size = 'A4'

@@ -18,9 +18,6 @@ let sachKonten = prepareAccount(0, 10000, accounts)
 let debitoren = prepareAccount(10000, 70000, accounts)
 let kreditoren = prepareAccount(70000, 100000, accounts)
 
-  console.log(sachKonten)
-  console.log(debitoren)
-  console.log(kreditoren)
     return (
         <>
           <ExportKontenBlatt

@@ -53,8 +53,6 @@ def add_booking():
     with shelve.open("buchungen.db", writeback=True) as buchungen:
         newBuchungsschuessel = increment_booking_keys(buchungen, buchungsschluessel)
         neueBuchung["Buchungsschluessel"] = newBuchungsschuessel
-        # TODO: UPDATE Betrag for relevant KONTO in konten.db
-        # TODO: UPDATE Steuer Konto, HOW TO UPDATE 1400 & 1600( maybe add fake Buchungen )
         with shelve.open("konten.db", writeback=True) as konten:
             altJVHabenWert = konten[habenKonto]["JahresverkehrszahlenHabenWert"]
             altJVSollWert = konten[sollKonto]["JahresverkehrszahlenSollWert"]
@@ -78,8 +76,10 @@ def add_booking():
             neueBuchungfuerHabenKonto["SollBetragMitSteuer"] = 0
             konten[habenKonto]["JahresverkehrszahlenHabenWert"] = newJVHabenWert
             konten[habenKonto]["Buchungen"][buchungsId] = neueBuchungfuerHabenKonto
+            update_saldo(konten[habenKonto])
 
             # Update Soll Konto
+            # Update 1400 and 1600
             if is_debitor(sollKonto):
                 konten["1400"]["JahresverkehrszahlenSollWert"] = add_betrag(
                     konten["1400"]["JahresverkehrszahlenSollWert"], neueBuchung["SollBetragMitSteuer"])
@@ -96,6 +96,7 @@ def add_booking():
             neueBuchungfuerSollKonto["HabenBetragMitSteuer"] = 0
             konten[sollKonto]["JahresverkehrszahlenSollWert"] = newJVSollWert
             konten[sollKonto]["Buchungen"][buchungsId] = neueBuchungfuerSollKonto
+            update_saldo(konten[sollKonto])
 
             # UPDATE STEUER
             if steuerKonto == '1571' or steuerKonto == '1576':
@@ -103,16 +104,19 @@ def add_booking():
                 konten[steuerKonto]["Buchungen"][buchungsId]["SollBetragMitSteuer"] = steuerBetrag
                 konten[steuerKonto]["JahresverkehrszahlenSollWert"] = add_betrag(
                     konten[steuerKonto]["JahresverkehrszahlenSollWert"], steuerBetrag)
-
+                update_saldo(konten[steuerKonto])
             if steuerKonto == '1771' or steuerKonto == '1776':
                 konten[steuerKonto]["Buchungen"][buchungsId] = neueBuchungfuerHabenKonto.copy()
                 konten[steuerKonto]["Buchungen"][buchungsId]["HabenBetragMitSteuer"] = steuerBetrag
                 konten[steuerKonto]["JahresverkehrszahlenHabenWert"] = add_betrag(
                     konten[steuerKonto]["JahresverkehrszahlenHabenWert"], steuerBetrag)
+                update_saldo(konten[steuerKonto])
 
             if buchungText == "Eroeffnungsbuchung":
                 konten[habenKonto]["EroeffnungsbilanzHabenWert"] = betragMitSteuer
+                update_saldo(konten[habenKonto])
                 konten[sollKonto]["EroeffnungsbilanzSollWert"] = betragMitSteuer
+                update_saldo(konten[sollKonto])
 
             shelve.Shelf.close(konten)
         if buchungsId not in buchungen:

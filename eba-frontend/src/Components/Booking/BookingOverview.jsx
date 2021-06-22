@@ -146,7 +146,6 @@ export default function BookingOverview() {
     "Steuerkonto": "",
   }
   dataBookings.push(summary)
-  console.log(dataBookings)
   return (
     <>
       <span>

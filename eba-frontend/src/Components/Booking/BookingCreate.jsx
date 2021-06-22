@@ -7,9 +7,9 @@ import {
   Form,
   Select,
   Input,
-  DatePicker
+  DatePicker,
+  Typography
 } from "antd";
-
 
 const formItemLayout = {
   labelCol: {
@@ -64,7 +64,6 @@ export default function BookingCreate() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const id = Object.keys(booking).length + 1
-    console.log(id)
     const raw = JSON.stringify({
       [id]: {
         "Buchungsdatum": datum,
@@ -85,7 +84,6 @@ export default function BookingCreate() {
 
       }
     });
-    console.log(raw)
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -100,10 +98,6 @@ export default function BookingCreate() {
         }
         return response.json()
       })
-      .then(result => {
-          console.log(result)
-        }
-      )
       .catch(error => console.log('error', error));
   };
 
@@ -129,14 +123,12 @@ export default function BookingCreate() {
 
       case 'Rechnungseingang':
         setBuchungTextState('Rechnungseingang')
-        console.log(buchungTextState)
         form.setFieldsValue({
           Buchungschluessel: 'RE',
         });
         return;
       case 'Zahlungsausgang':
         setBuchungTextState('Zahlungsausgang')
-        console.log(buchungTextState)
         form.setFieldsValue({
           Buchungschluessel: 'ZA',
         });
@@ -200,7 +192,7 @@ export default function BookingCreate() {
         (
           <div>
             <>
-              <h1>Neue Buchung erstellen</h1>
+              <Typography.Title level={3}>Neue Buchung erstellen</Typography.Title>
               <Form
                 {...formItemLayout}
                 form={form}

@@ -9,19 +9,15 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.15.6",
-    "concurrently": "^6.2.0",
     "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.14",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "sass": "^1.35.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start-server": "cd .. && venv\\Scripts\\activate.bat && venv\\Scripts\\python app.py",
-    "start": "npm install && npm update --force && concurrently \"npm run start-server\" \"react-scripts start\" ",
-    "start-fe": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
