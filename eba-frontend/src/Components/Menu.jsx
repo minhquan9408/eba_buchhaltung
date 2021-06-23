@@ -12,6 +12,7 @@ import Account from "./Account/Account";
 import TaxReturn from "./Extra/TaxReturn";
 import SummenSaldenliste from "./Extra/SummenSaldenliste";
 import Hauptseite from "./Hauptseite";
+import GewinnVerlustRechung from "./Extra/GewinnVerlustRechung";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -36,25 +37,30 @@ export default function MenuLayout() {
 
 
             <SubMenu key="sub1" icon={<TableOutlined/>} title="Auswertungsmodul">
-              <Menu.Item key="3">
-                <span><CalendarOutlined/>Journal</span>
+              <Menu.Item key="3" icon={<CalendarOutlined/>}>
+                <span> Journal </span>
                 <Link to="/booking/overview"/>
               </Menu.Item>
-              <Menu.Item key="4">
-                <span><GroupOutlined/>Kontenblätter</span>
+              <Menu.Item key="4" icon={<GroupOutlined/>}>
+                <span> Kontenblätter </span>
                 <Link to="/account/overview"/>
               </Menu.Item>
-              <Menu.Item key="5">
-                <span><GroupOutlined/>Alle Konten</span>
+              <Menu.Item key="5" icon={<GroupOutlined/>}>
+                <span> Alle Konten </span>
                 <Link to="/account/all-accounts"/>
               </Menu.Item>
-              <Menu.Item key="6">
-                <span><GroupOutlined/>Steuererklärung</span>
+              <Menu.Item key="6" icon={<GroupOutlined/>}>
+                <span> Umsatzsteuererklärung </span>
                 <Link to="/tax"/>
               </Menu.Item>
-              <Menu.Item key="7">
-                <span><GroupOutlined/>Summe und Salden Liste</span>
+              <Menu.Item key="7" icon={<GroupOutlined/>}>
+                <span> Summe und Saldenliste </span>
                 <Link to="/summe-salden-liste"/>
+              </Menu.Item>
+
+               <Menu.Item key="8" icon={<GroupOutlined/>}>
+                <span> GuV-Rechnung </span>
+                <Link to="/guv"/>
               </Menu.Item>
 
             </SubMenu>
@@ -79,6 +85,7 @@ export default function MenuLayout() {
             <Route exact path="/account/all-accounts" component={Account}/>
             <Route exact path="/tax" component={TaxReturn}/>
             <Route exact path="/summe-salden-liste" component={SummenSaldenliste}/>
+            <Route exact path="/guv" component={GewinnVerlustRechung}/>
             <Route exact path="/" component={Hauptseite}/>
           </Content>
           <Footer style={{textAlign: 'center'}}>EBA ©2021 Minh Quan Dong</Footer>

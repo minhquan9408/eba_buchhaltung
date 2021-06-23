@@ -62,7 +62,7 @@ export default function TaxReturn() {
   return (
     <div>
       <Typography.Title level = {3}>
-        Steuererkl&auml;rung
+        Umsatzsteuererkl&auml;rung
       </Typography.Title>
       <ExportTaxReturn data = {data}/>
       <Table bordered

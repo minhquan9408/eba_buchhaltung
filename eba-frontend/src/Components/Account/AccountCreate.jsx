@@ -85,6 +85,8 @@ export default function AccountCreate() {
         "JahresverkehrszahlenHabenWert": 0,
         "JahresverkehrszahlenSollWert": 0,
         "Saldo": 0,
+        "SaldoSoll": 0,
+        "SaldoHaben": 0,
         "Adresse": values.Adresse,
         "Buchungen": {}
       }
@@ -100,7 +102,7 @@ export default function AccountCreate() {
     fetch("http://127.0.0.1:5000/api/konten/add", requestOptions)
       .then(response => {
         if (response.ok) {
-          history.push("/account/overview")
+          history.push("/account/all-accounts")
           return response.json()
         }
         if (response.status === 400) {

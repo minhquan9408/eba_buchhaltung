@@ -14,8 +14,7 @@ export default function ExportSummenSaldenliste(props) {
     vortragsUndStatischeKonten,
     sachKonten
   } = props.dataSachkonten
-  console.log(anlageUndKapitalKonten)
-  console.log(finanzUndPrivatkonten)
+
   let dataSachkontenForExport  = []
   prepareDataSourceForTable(
     dataSachkontenForExport,
@@ -67,7 +66,6 @@ export default function ExportSummenSaldenliste(props) {
     )
   const debitoren = props.dataDebitoren
   const kreditoren = props.dataKreditoren
-  console.log(debitoren)
   const exportListe = () => {
     const unit = 'mm'
     const size = 'A2'
