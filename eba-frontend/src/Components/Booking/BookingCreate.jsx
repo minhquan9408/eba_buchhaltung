@@ -179,8 +179,8 @@ export default function BookingCreate() {
     acc["Kontonummer"] !== "1771" &&
     acc["Kontonummer"] !== "1776"
   )
-  const bankKonto = accountsWithName.filter(acc => acc["Kontonummer"] === "1200")
-  const erloeseKonto = accountsWithName.filter(acc => acc["Kontonummer"] === "8400")
+  const bankKonto = accountsWithName.filter(acc => acc["Kontonummer"] >= 1000 && acc["Kontonummer"] < 1201)
+  const erloeseKonto = accountsWithName.filter(acc => acc["Kontonummer"] >= 8000 && acc["Kontonummer"] < 9000)
   const mWStKonto = accountsWithName.filter(acc => acc["Kontonummer"] === "1771" || acc["Kontonummer"] === "1776")
   const vorSteuerKonto = accountsWithName.filter(acc => acc["Kontonummer"] === "1571" || acc["Kontonummer"] === "1576")
   const allSteuerKonto = accountsWithName.filter(acc => acc["Kontonummer"] === "1571" || acc["Kontonummer"] === "1576"

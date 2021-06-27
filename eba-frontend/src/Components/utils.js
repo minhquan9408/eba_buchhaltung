@@ -331,105 +331,107 @@ export function exportSummenSaldenlisteSachkonten(doc, konten, title) {
 
 //Utils for GuV
 export function prepareBodyForPdf(body, konten, title) {
-  let summe = 0
-  let dataDetails = []
-  const data = [
-    [
-      "",
-      title,
-      "",
-      "",
-      ""
+  if (konten[0] !== undefined) {
+    let summe = 0
+    let dataDetails = []
+    const data = [
+      [
+        "",
+        title,
+        "",
+        "",
+        ""
+      ]
     ]
-  ]
-  if (konten[0].length === undefined){
-    dataDetails = konten.map((row) => {
-        const saldoHaben = parseFloat(row.SaldoHaben)
-        const saldoSoll = parseFloat(row.SaldoSoll)
-        if (saldoHaben > 0) {
-          summe += saldoHaben
-          return (
-            [
-              "",
-              "",
-              row.Kontonummer,
-              "+" + row.SaldoHaben,
-              ""
-            ]
-          )
+
+    if (konten[0].length === undefined){
+      dataDetails = konten.map((row) => {
+          const saldoHaben = parseFloat(row.SaldoHaben)
+          const saldoSoll = parseFloat(row.SaldoSoll)
+          if (saldoHaben > 0) {
+            summe += saldoHaben
+            return (
+              [
+                "",
+                "",
+                row.Kontonummer,
+                "+" + row.SaldoHaben,
+                ""
+              ]
+            )
+          }
+          if (saldoSoll > 0) {
+            summe -= saldoSoll
+            return (
+              [
+                "",
+                "",
+                row.Kontonummer,
+                "-" + row.SaldoSoll,
+                ""
+              ]
+            )
+          }
+          if (saldoSoll === saldoHaben) {
+            return ([])
+          }
+        })
+    }
+
+
+    if (konten[0].length!== undefined)
+    for (const konto in konten) {
+      dataDetails = konten[konto].map((row) => {
+          const saldoHaben = parseFloat(row.SaldoHaben)
+          const saldoSoll = parseFloat(row.SaldoSoll)
+          if (saldoHaben > 0) {
+            summe += saldoHaben
+            return (
+              [
+                "",
+                "",
+                row.Kontonummer,
+                "+" + row.SaldoHaben,
+                ""
+              ]
+            )
+          }
+          if (saldoSoll > 0) {
+            summe -= saldoSoll
+            return (
+              [
+                "",
+                "",
+                row.Kontonummer,
+                "-" + row.SaldoSoll,
+                ""
+              ]
+            )
+          }
+          if (saldoSoll === saldoHaben) {
+            return ([])
+          }
         }
-        if (saldoSoll > 0) {
-          summe -= saldoSoll
-          return (
-            [
-              "",
-              "",
-              row.Kontonummer,
-              "-" + row.SaldoSoll,
-              ""
-            ]
-          )
-        }
-        if (saldoSoll === saldoHaben) {
-          return ([])
-        }
+      )
+    }
+
+
+    for (const detail in dataDetails) {
+      if (detail.length > 0)
+        data.push(dataDetails[detail])
+    }
+    data.push([
+      "Summe",
+      "",
+      "",
+      "",
+      summe.toFixed(2)
+    ])
+
+    if (summe !== 0)
+      data.forEach(value => {
+        body.push(value)
       })
+    return summe
   }
-
-
-  if (konten[0].length!== undefined)
-  for (const konto in konten) {
-    dataDetails = konten[konto].map((row) => {
-        const saldoHaben = parseFloat(row.SaldoHaben)
-        const saldoSoll = parseFloat(row.SaldoSoll)
-        if (saldoHaben > 0) {
-          summe += saldoHaben
-          return (
-            [
-              "",
-              "",
-              row.Kontonummer,
-              "+" + row.SaldoHaben,
-              ""
-            ]
-          )
-        }
-        if (saldoSoll > 0) {
-          summe -= saldoSoll
-          return (
-            [
-              "",
-              "",
-              row.Kontonummer,
-              "-" + row.SaldoSoll,
-              ""
-            ]
-          )
-        }
-        if (saldoSoll === saldoHaben) {
-          return ([])
-        }
-      }
-    )
-    console.log(dataDetails)
-  }
-
-
-  for (const detail in dataDetails) {
-    if (detail.length > 0)
-      data.push(dataDetails[detail])
-  }
-  data.push([
-    "Summe",
-    "",
-    "",
-    "",
-    summe.toFixed(2)
-  ])
-
-  if(summe !== 0)
-  data.forEach(value => {
-    body.push(value)
-  })
-  return summe
 }

@@ -76,19 +76,3 @@ def update_saldo(konto):
         konto["SaldoHaben"] = format(0, ".2f")
         konto["SaldoSoll"] = format(0, ".2f")
 
-
-testKonto = {
-    "Kontonummer": "800",
-    "Kontoname": "Gezeichnetes Kapital",
-    "Beschreibung": "Gezeichnetes Kapital",
-    "EroeffnungsbilanzHabenWert": 40000,
-    "EroeffnungsbilanzSollWert": 0,
-    "JahresverkehrszahlenHabenWert": 1000,
-    "JahresverkehrszahlenSollWert": 9000,
-    "SaldoSoll": 0,
-    "SaldoHaben": 0,
-    "Buchungen": {}
-}
-
-update_saldo(testKonto)
-print(testKonto)

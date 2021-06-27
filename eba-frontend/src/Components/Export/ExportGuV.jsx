@@ -11,15 +11,11 @@ export default function ExportGuV(props) {
   const sonstigeBetrieblicheAnwendungen = props.sonstigeBetrieblicheAnwendungen
   const body = []
 
+if(!!erloeseKonto && !!abschreibungen &&!!sonstigeBetrieblicheAnwendungen){
   const summeErloeseKonto = prepareBodyForPdf(body, erloeseKonto, "+ Umsatzerl\u00F6se")
   const summeAbschreibung = prepareBodyForPdf(body, abschreibungen, "- Abschreibungen")
   const summeSonstiges = prepareBodyForPdf(body, sonstigeBetrieblicheAnwendungen, "- Sonstige betriebliche Anwendungen")
-  console.log(summeErloeseKonto)
-  console.log(summeAbschreibung)
-  console.log(summeSonstiges)
   const finalSumme = (summeErloeseKonto + summeAbschreibung + summeSonstiges).toFixed(2)
-  console.log(finalSumme)
-
   body.push([
       "Summe Ergebnis der gew\u00F6hnlichen Gesch\u00E4ftst\u00E4tigkeit",
       "",
@@ -34,6 +30,9 @@ export default function ExportGuV(props) {
       "",
       finalSumme
     ])
+}
+
+
   const exportGuV = () => {
     const unit = 'mm'
     const size = 'A3'
@@ -54,7 +53,6 @@ export default function ExportGuV(props) {
       body: body,
       didParseCell: function (data) {
           let rows = data.table.body;
-        console.log(data)
           for (const row in rows) {
             if (rows[row]["raw"]["4"]!==undefined){
               data.cell.styles.fontStyle = "bold"

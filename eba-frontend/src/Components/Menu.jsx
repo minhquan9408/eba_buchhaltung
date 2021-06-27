@@ -13,6 +13,7 @@ import TaxReturn from "./Extra/TaxReturn";
 import SummenSaldenliste from "./Extra/SummenSaldenliste";
 import Hauptseite from "./Hauptseite";
 import GewinnVerlustRechung from "./Extra/GewinnVerlustRechung";
+import Bilanz from "./Extra/Bilanz";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -63,6 +64,11 @@ export default function MenuLayout() {
                 <Link to="/guv"/>
               </Menu.Item>
 
+              {/* <Menu.Item key="9" icon={<GroupOutlined/>}>*/}
+              {/*  <span> Bilanz </span>*/}
+              {/*  <Link to="/bilanz"/>*/}
+              {/*</Menu.Item>*/}
+
             </SubMenu>
           </Menu>
         </Sider>
@@ -86,6 +92,7 @@ export default function MenuLayout() {
             <Route exact path="/tax" component={TaxReturn}/>
             <Route exact path="/summe-salden-liste" component={SummenSaldenliste}/>
             <Route exact path="/guv" component={GewinnVerlustRechung}/>
+            <Route exact path="/bilanz" component={Bilanz}/>
             <Route exact path="/" component={Hauptseite}/>
           </Content>
           <Footer style={{textAlign: 'center'}}>EBA ©2021 Minh Quan Dong</Footer>
